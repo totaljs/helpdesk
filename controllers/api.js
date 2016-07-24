@@ -1,39 +1,39 @@
 exports.install = function() {
 	// Tickets
-	F.route('/api/tickets/',              json_query,            ['*Ticket']);
-	F.route('/api/tickets/',              json_save,             ['*Ticket', 'post']);
-	F.route('/api/tickets/{id}/',         json_read,             ['*Ticket']);
-	F.route('/api/tickets/{id}/',         json_remove,           ['*Ticket', 'delete']);
+	F.route('/api/tickets/',              json_query,            ['authorize', '*Ticket']);
+	F.route('/api/tickets/',              json_save,             ['authorize', '*Ticket', 'post']);
+	F.route('/api/tickets/{id}/',         json_read,             ['authorize', '*Ticket']);
+	F.route('/api/tickets/{id}/',         json_remove,           ['authorize', '*Ticket', 'delete']);
 
-	F.route('/api/tickets/{id}/close/',   json_tickets_close,    ['*Ticket']);
-	F.route('/api/tickets/{id}/open/',    json_tickets_open,     ['*Ticket']);
-	F.route('/api/tickets/{id}/assign/',  json_tickets_assign,   ['*Ticket']);
-	F.route('/api/tickets/minutes/',      json_save,             ['*Minutes', 'post']);
-	F.route('/api/tickets/labels/',       json_save,             ['*Labels', 'post']);
+	F.route('/api/tickets/{id}/close/',   json_tickets_close,    ['authorize', '*Ticket']);
+	F.route('/api/tickets/{id}/open/',    json_tickets_open,     ['authorize', '*Ticket']);
+	F.route('/api/tickets/{id}/assign/',  json_tickets_assign,   ['authorize', '*Ticket']);
+	F.route('/api/tickets/minutes/',      json_save,             ['authorize', '*Minutes', 'post']);
+	F.route('/api/tickets/labels/',       json_save,             ['authorize', '*Labels', 'post']);
 
 	// Comments
-	F.route('/api/comments/',             json_save,             ['*Comment', 'post']);
-	F.route('/api/comments/solution/',    json_save,             ['*Solution', 'post']);
-	F.route('/api/comments/{id}/',        json_remove,           ['*Comment', 'delete']);
+	F.route('/api/comments/',             json_save,             ['authorize', '*Comment', 'post']);
+	F.route('/api/comments/solution/',    json_save,             ['authorize', '*Solution', 'post']);
+	F.route('/api/comments/{id}/',        json_remove,           ['authorize', '*Comment', 'delete']);
 
 	// Account
-	F.route('/api/account/',              json_read,             ['*Account']);
-	F.route('/api/account/',              json_save,             ['*Account', 'post']);
-	F.route('/api/account/minutes/',      json_account_time,     ['*Account']);
+	F.route('/api/account/',              json_read,             ['authorize', '*Account']);
+	F.route('/api/account/',              json_save,             ['authorize', '*Account', 'post']);
+	F.route('/api/account/minutes/',      json_account_time,     ['authorize', '*Account']);
 
 	// Users
-	F.route('/api/users/',                json_query,            ['*User']);
-	F.route('/api/users/',                json_users_save,       ['*User', 'post']);
-	F.route('/api/users/{id}/',           json_read,             ['*User']);
-	F.route('/api/users/{id}/',           json_remove,           ['*User', 'delete']);
-	F.route('/api/users/{id}/stats/',     json_users_stats,      ['*User']);
+	F.route('/api/users/',                json_query,            ['authorize', '*User']);
+	F.route('/api/users/',                json_users_save,       ['authorize', '*User', 'post']);
+	F.route('/api/users/{id}/',           json_read,             ['authorize', '*User']);
+	F.route('/api/users/{id}/',           json_remove,           ['authorize', '*User', 'delete']);
+	F.route('/api/users/{id}/stats/',     json_users_stats,      ['authorize', '*User']);
 
 	// Common
-	F.route('/api/cdl/',                  json_cdl);
-	F.route('/api/upload/',               json_upload,           ['upload'], 1024 * 2);
-	F.route('/api/login/',                json_exec,             ['*Login', 'post']);
-	F.route('/api/password/',             json_exec,             ['*Password', 'post']);
-	F.route('/api/token/',                json_exec,             ['*Token', 'post']);
+	F.route('/api/cdl/',                  json_cdl,              ['authorize']);
+	F.route('/api/upload/',               json_upload,           ['authorize', 'upload'], 1024 * 2);
+	F.route('/api/login/',                json_exec,             ['authorize', '*Login', 'post']);
+	F.route('/api/password/',             json_exec,             ['authorize', '*Password', 'post']);
+	F.route('/api/token/',                json_exec,             ['authorize', '*Token', 'post']);
 };
 
 function json_cdl() {
