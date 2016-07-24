@@ -19,13 +19,6 @@ header nav .logoff:hover { background-color: #FF505F; }
 header nav img { float: right; height: 40px; }
 header .photo { padding: 10px 7px; }
 
-@media(max-width: 996px) {
-	header { position: relative; width: 100%; top: 0; left: 0; right: auto; bottom: auto; }
-	header .photo { display: none; }
-	header nav { display: none; }
-	#body { margin-left: 0; }
-}
-
 section { border: 1px solid #E0E0E0; background-color: white; border-radius: 4px; margin-bottom: 30px; position: relative; }
 section > label { font-family: $font; text-transform: uppercase; color: black; padding: 10px 18px; display: block; border-bottom: 1px solid #E0E0E0; background: linear-gradient(white,#F8F8F8); border-radius: 4px 4px 0 0; font-size: 11px; font-weight: 700; }
 section > label .fa { margin-right: 7px; }
@@ -209,16 +202,23 @@ canvas { display: block; }
 .keyvalue .value { text-overflow: ellipsis; white-space: nowrap; overflow: hidden; font-size: 14px; color: #A0A0A0; }
 .keyvalue .fa { margin-right: 5px; }
 
-@media(max-width: 767px) {
+@media(max-width: 996px) {
+	header .photo { display: none; }
+	header nav { display: none; }
 	.mainmenu { display: block; }
-	header { min-height: 45px; height: auto; margin-bottom: 15px; padding: 0 20px; }
+	header { position: relative; width: 100%; top: 0; left: 0; right: auto; bottom: auto; min-height: 45px; height: auto; margin-bottom: 15px; padding: 0 20px; }
 	#success { top: 2px; left: 2px; }
 	header nav { font-size: 20px; display: none; float: none; margin: 10px 0 10px; padding-bottom: 15px; }
-	header nav a { min-width: 33% !important; height: 55px; padding-top: 12px; border-right: 0; background-color: white; border-left: 1px solid #F0F0F0; position: relative; display: inline-block; }
+	header nav a { min-width: 20% !important; height: 55px; padding-top: 12px; border-right: 0; background-color: white; border-left: 1px solid #F0F0F0; position: relative; display: inline-block; }
 	header nav .logoff { float: none; min-width: 25%; background-color: #E7331F !important; }
 	header nav .logoff:hover { background-color: #E74839 !important; }
 	header nav .selected { background-color: black !important; color: white; }
 	header nav .highlight { background-color: #E9E9E9 !important; }
+	#body { margin-left: 0; }
+}
+
+@media(max-width: 767px) {
+	header nav a { min-width: 33% !important; height: 55px; padding-top: 12px; border-right: 0; background-color: white; border-left: 1px solid #F0F0F0; position: relative; display: inline-block; }
 	.ui-form-buttons button[name="submit"] { width: 140px; }
 	.table-xs thead { display: none; }
 	.table-xs tbody { margin-top: 15px; display: block; }
