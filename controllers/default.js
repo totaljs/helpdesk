@@ -1,11 +1,12 @@
 exports.install = function() {
 	F.route('/*', 'index', ['authorize']);
 	F.route('/', 'login', ['unauthorize']);
-	F.localize('/templates/*.html', ['compress']);
-	F.route('/logoff', redirect_logoff);
+	F.route('/logoff', redirect_logoff, ['authorize']);
 
 	F.file('/photos/*.jpg', file_photo);
 	F.file('/download/*', file_download);
+
+	F.localize('/templates/*.html', ['compress']);
 };
 
 function file_photo(req, res) {
