@@ -51,7 +51,7 @@
 					<script type="text/html">
 						{{ if datelogged }}
 						<div class="keyvalue">
-							<div class="key">@(Logged)</div>
+							<div class="key">@(Logged in)</div>
 							<div class="value">{{ datelogged | format('@(yyyy-MM-dd HH:mm)') }}</div>
 						</div>
 						{{ fi }}
@@ -74,7 +74,6 @@
 				<div class="padding">
 					<div class="m" data-component="textbox" data-component-path="users.form.name" data-required="true" data-maxlength="50" data-component-value="''">@(Name)</div>
 					<div data-component="textbox" data-component-path="users.form.email" data-maxlength="200" data-component-type="email" data-required="true" data-component-value="'@'">@(Email)</div>
-					<div class="help m"><i class="fa fa-envelope mr5"></i>@(HelpDesk will send email with account confirmation.)</div>
 					<div class="m" data-component="textbox" data-component-path="users.form.company" data-component-value="''">@(Company)</div>
 					<div class="m" data-component="textbox" data-component-path="users.form.position" data-maxlength="50" data-placeholder="@(e.g. Web developer)" data-component-value="''">@(Position)</div>
 
