@@ -255,7 +255,11 @@
 
 		SETTER('loading', 'show');
 		COM.UPLOAD('/api/upload/', data, function(response, err) {
+
 			SETTER('loading', 'hide', 1000);
+
+			if (err)
+				return SETTER('message', 'warning', err.toString());
 
 			for (var i = 0, length = response.length; i < length; i++) {
 				var file = response[i];
