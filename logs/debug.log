@@ -1,0 +1,238 @@
+----------------------------------------------------> PID: 11604 (v3.0)
+====================================================
+PID          : 11609
+Node.js      : v4.4.7
+Total.js     : v2.0.1-5
+====================================================
+Name         : HelpDesk
+Version      : 1.0.0
+Author       : Peter Širka
+Date         : 2016-07-24 12:22:43
+Mode         : debug
+====================================================
+
+http://127.0.0.1:8034/
+
+[TypeError: Cannot read property 'push' of undefined]
+======= 2016-07-24 12:29:46: TypeError: Cannot read property 'push' of undefined TypeError: Cannot read property 'push' of undefined
+    at /www/www/totaljs_com-helpdesk/definitions/helpdesk.js:88:21
+    at /www/node_modules/sqlagent/pg.js:1593:4
+    at Array.sqlagent (/www/node_modules/sqlagent/index.js:7:3)
+    at Immediate._onImmediate (/www/node_modules/sqlagent/index.js:19:27)
+    at processImmediate [as _immediateCallback] (timers.js:383:17)
+[TypeError: Cannot read property 'push' of undefined]
+======= 2016-07-24 14:40:11: TypeError: Cannot read property 'push' of undefined TypeError: Cannot read property 'push' of undefined
+    at /www/www/totaljs_com-helpdesk/definitions/helpdesk.js:88:21
+    at /www/node_modules/sqlagent/pg.js:1593:4
+    at Array.sqlagent (/www/node_modules/sqlagent/index.js:7:3)
+    at Immediate._onImmediate (/www/node_modules/sqlagent/index.js:19:27)
+    at processImmediate [as _immediateCallback] (timers.js:383:17)
+----------------------------------------------------> /definitions/helpdesk.js (modified)
+----------------------------------------------------> /definitions/merge.js (modified)
+----------------------------------------------------> /definitions/auth.js (modified)
+[TypeError: Cannot read property 'push' of undefined]
+======= 2016-07-24 18:14:50: TypeError: Cannot read property 'push' of undefined TypeError: Cannot read property 'push' of undefined
+    at /www/www/totaljs_com-helpdesk/definitions/helpdesk.js:88:21
+    at /www/node_modules/sqlagent/pg.js:1593:4
+    at Array.sqlagent (/www/node_modules/sqlagent/index.js:7:3)
+    at Immediate._onImmediate (/www/node_modules/sqlagent/index.js:19:27)
+    at processImmediate [as _immediateCallback] (timers.js:383:17)
+----------------------------------------------------> /controllers/api.js (modified)
+----------------------------------------------------> /models/users.js (modified)
+----------------------------------------------------> /models/login.js (modified)
+======= 2016-07-24 18:19:48: framework.install('model', 'login') ---> SyntaxError: missing ) after argument list SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.install (/www/node_modules/total.js/index.js:3096:11)
+    at /www/node_modules/total.js/index.js:2671:30
+    at Array.forEach (native)
+----------------------------------------------------> /models/login.js (modified)
+======= 2016-07-24 18:20:08: framework.install('model', 'login') ---> SyntaxError: missing ) after argument list SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.install (/www/node_modules/total.js/index.js:3096:11)
+    at /www/node_modules/total.js/index.js:2671:30
+    at Array.forEach (native)
+----------------------------------------------------> /resources/default.resource (modified)
+======= 2016-07-24 18:20:28: framework.install('model', 'login') ---> SyntaxError: missing ) after argument list SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.install (/www/node_modules/total.js/index.js:3096:11)
+    at /www/node_modules/total.js/index.js:2671:30
+    at Array.forEach (native)
+----------------------------------------------------> /models/login.js (modified)
+======= 2016-07-24 18:20:32: framework.install('model', 'login') ---> SyntaxError: missing ) after argument list SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.install (/www/node_modules/total.js/index.js:3096:11)
+    at /www/node_modules/total.js/index.js:2671:30
+    at Array.forEach (native)
+----------------------------------------------------> /models/login.js (modified)
+======= 2016-07-24 18:20:44: framework.install('model', 'login') ---> SyntaxError: missing ) after argument list SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.install (/www/node_modules/total.js/index.js:3096:11)
+    at /www/node_modules/total.js/index.js:2671:30
+    at Array.forEach (native)
+----------------------------------------------------> /models/login.js (modified)
+======= 2016-07-24 18:21:52: framework.install('model', 'login') ---> SyntaxError: missing ) after argument list SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.install (/www/node_modules/total.js/index.js:3096:11)
+    at /www/node_modules/total.js/index.js:2671:30
+    at Array.forEach (native)
+----------------------------------------------------> /models/login.js (modified)
+======= 2016-07-24 18:22:00: framework.install('model', 'login') ---> SyntaxError: missing ) after argument list SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.install (/www/node_modules/total.js/index.js:3096:11)
+    at /www/node_modules/total.js/index.js:2671:30
+    at Array.forEach (native)
+----------------------------------------------------> /controllers/default.js (modified)
+======= 2016-07-24 18:22:36: framework.install('model', 'login') ---> SyntaxError: missing ) after argument list SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.install (/www/node_modules/total.js/index.js:3096:11)
+    at /www/node_modules/total.js/index.js:2671:30
+    at Array.forEach (native)
+----------------------------------------------------> /controllers/api.js (modified)
+======= 2016-07-24 18:22:48: framework.install('model', 'login') ---> SyntaxError: missing ) after argument list SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.install (/www/node_modules/total.js/index.js:3096:11)
+    at /www/node_modules/total.js/index.js:2671:30
+    at Array.forEach (native)
+----------------------------------------------------> /models/login.js (modified)
+----------------------------------------------------> /models/password.js (added)
+======= 2016-07-24 18:23:04: framework.install('model', 'password') ---> SyntaxError: missing ) after argument list SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.install (/www/node_modules/total.js/index.js:3096:11)
+    at /www/node_modules/total.js/index.js:2671:30
+    at Array.forEach (native)
+----------------------------------------------------> /models/password.js (modified)
+======= 2016-07-24 18:23:16: framework.install('model', 'password') ---> SyntaxError: missing ) after argument list SyntaxError: missing ) after argument list
+    at exports.runInThisContext (vm.js:53:16)
+    at Module._compile (module.js:373:25)
+    at Object.Module._extensions..js (module.js:416:10)
+    at Module.load (module.js:343:32)
+    at Function.Module._load (module.js:300:12)
+    at Module.require (module.js:353:17)
+    at require (internal/module.js:12:17)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.install (/www/node_modules/total.js/index.js:3096:11)
+    at /www/node_modules/total.js/index.js:2671:30
+    at Array.forEach (native)
+----------------------------------------------------> /models/password.js (modified)
+======= 2016-07-24 18:23:25: api ---> ReferenceError: builder is not defined (https://helpdesk.totaljs.com/api/password/) ReferenceError: builder is not defined
+    at Object.<anonymous> (/www/www/totaljs_com-helpdesk/models/password.js:20:4)
+    at Object.SqlBuilder.make (/www/node_modules/sqlagent/pg.js:608:5)
+    at SchemaBuilderEntity.<anonymous> (/www/www/totaljs_com-helpdesk/models/password.js:19:26)
+    at /www/node_modules/total.js/builders.js:1698:13
+    at SchemaBuilderEntity.allow.SchemaBuilderEntity.$prepare.callback [as $prepare] (/www/node_modules/total.js/builders.js:1065:3)
+    at SchemaBuilderEntity.allow.SchemaBuilderEntity.$prepare.SchemaBuilderEntity.workflow (/www/node_modules/total.js/builders.js:1683:7)
+    at SchemaInstance.SchemaBuilderEntity.allow.SchemaBuilderEntity.$prepare.SchemaInstance.$workflow (/www/node_modules/total.js/builders.js:2135:16)
+    at Object.Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.log.Framework.logger.Framework.responseStatic.Framework.responseStream.Framework.responseBinary.Framework.responseContent.Framework.mode.Framework._request_continue.self._cors.self._cors.self._cors.Framework.test.Framework._configure.FrameworkPath.exists.Subscribe.urlencoded.Controller.$workflow (/www/node_modules/total.js/index.js:10280:13)
+    at Object.json_exec (/www/www/totaljs_com-helpdesk/controllers/api.js:106:7)
+    at Subscribe.Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.log.Framework.logger.Framework.responseStatic.Framework.responseStream.Framework.responseBinary.Framework.responseContent.Framework.mode.Framework._request_continue.self._cors.self._cors.self._cors.Framework.test.Framework._configure.FrameworkPath.exists.Subscribe.urlencoded.Subscribe.doExecute (/www/node_modules/total.js/index.js:9761:23)
+----------------------------------------------------> /models/password.js (modified)
+[TypeError: Cannot read property 'length' of undefined]
+======= 2016-07-24 18:23:36: TypeError: Cannot read property 'length' of undefined TypeError: Cannot read property 'length' of undefined
+    at Message.to (/www/node_modules/total.js/mail.js:161:21)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.onMail (/www/node_modules/total.js/index.js:4003:11)
+    at Object.Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.log.Framework.logger.Framework.responseStatic.Framework.responseStream.Framework.responseBinary.Framework.responseContent.Framework.mode.Framework._request_continue.self._cors.self._cors.self._cors.Framework.test.Framework._configure.FrameworkPath.exists.Subscribe.urlencoded.Controller.invalid.Controller.mail (/www/node_modules/total.js/index.js:11028:19)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.log.Framework.logger.Framework.responseStatic.Framework.responseStream.Framework.responseBinary.Framework.responseContent.Framework.mode.Framework._request_continue.self._cors.self._cors.self._cors.Framework.mail (/www/node_modules/total.js/index.js:7208:20)
+    at /www/www/totaljs_com-helpdesk/models/password.js:36:7
+    at /www/node_modules/sqlagent/pg.js:1593:4
+    at Array.sqlagent (/www/node_modules/sqlagent/index.js:7:3)
+    at Immediate._onImmediate (/www/node_modules/sqlagent/index.js:19:27)
+    at processImmediate [as _immediateCallback] (timers.js:383:17)
+[TypeError: Cannot read property 'length' of undefined]
+======= 2016-07-24 18:23:41: TypeError: Cannot read property 'length' of undefined TypeError: Cannot read property 'length' of undefined
+    at Message.to (/www/node_modules/total.js/mail.js:161:21)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.onMail (/www/node_modules/total.js/index.js:4003:11)
+    at Object.Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.log.Framework.logger.Framework.responseStatic.Framework.responseStream.Framework.responseBinary.Framework.responseContent.Framework.mode.Framework._request_continue.self._cors.self._cors.self._cors.Framework.test.Framework._configure.FrameworkPath.exists.Subscribe.urlencoded.Controller.invalid.Controller.mail (/www/node_modules/total.js/index.js:11028:19)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.log.Framework.logger.Framework.responseStatic.Framework.responseStream.Framework.responseBinary.Framework.responseContent.Framework.mode.Framework._request_continue.self._cors.self._cors.self._cors.Framework.mail (/www/node_modules/total.js/index.js:7208:20)
+    at /www/www/totaljs_com-helpdesk/models/password.js:36:7
+    at /www/node_modules/sqlagent/pg.js:1593:4
+    at Array.sqlagent (/www/node_modules/sqlagent/index.js:7:3)
+    at Immediate._onImmediate (/www/node_modules/sqlagent/index.js:19:27)
+    at processImmediate [as _immediateCallback] (timers.js:383:17)
+[TypeError: Cannot read property 'length' of undefined]
+======= 2016-07-24 18:23:46: TypeError: Cannot read property 'length' of undefined TypeError: Cannot read property 'length' of undefined
+    at Message.to (/www/node_modules/total.js/mail.js:161:21)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.onMail (/www/node_modules/total.js/index.js:4003:11)
+    at Object.Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.log.Framework.logger.Framework.responseStatic.Framework.responseStream.Framework.responseBinary.Framework.responseContent.Framework.mode.Framework._request_continue.self._cors.self._cors.self._cors.Framework.test.Framework._configure.FrameworkPath.exists.Subscribe.urlencoded.Controller.invalid.Controller.mail (/www/node_modules/total.js/index.js:11028:19)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.log.Framework.logger.Framework.responseStatic.Framework.responseStream.Framework.responseBinary.Framework.responseContent.Framework.mode.Framework._request_continue.self._cors.self._cors.self._cors.Framework.mail (/www/node_modules/total.js/index.js:7208:20)
+    at /www/www/totaljs_com-helpdesk/models/password.js:36:7
+    at /www/node_modules/sqlagent/pg.js:1593:4
+    at Array.sqlagent (/www/node_modules/sqlagent/index.js:7:3)
+    at Immediate._onImmediate (/www/node_modules/sqlagent/index.js:19:27)
+    at processImmediate [as _immediateCallback] (timers.js:383:17)
+[TypeError: Cannot read property 'length' of undefined]
+======= 2016-07-24 18:23:51: TypeError: Cannot read property 'length' of undefined TypeError: Cannot read property 'length' of undefined
+    at Message.to (/www/node_modules/total.js/mail.js:161:21)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.onMail (/www/node_modules/total.js/index.js:4003:11)
+    at Object.Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.log.Framework.logger.Framework.responseStatic.Framework.responseStream.Framework.responseBinary.Framework.responseContent.Framework.mode.Framework._request_continue.self._cors.self._cors.self._cors.Framework.test.Framework._configure.FrameworkPath.exists.Subscribe.urlencoded.Controller.invalid.Controller.mail (/www/node_modules/total.js/index.js:11028:19)
+    at Framework.$load.arr.forEach.arr.forEach.arr.forEach.Framework.log.Framework.logger.Framework.responseStatic.Framework.responseStream.Framework.responseBinary.Framework.responseContent.Framework.mode.Framework._request_continue.self._cors.self._cors.self._cors.Framework.mail (/www/node_modules/total.js/index.js:7208:20)
+    at /www/www/totaljs_com-helpdesk/models/password.js:36:7
+    at /www/node_modules/sqlagent/pg.js:1593:4
+    at Array.sqlagent (/www/node_modules/sqlagent/index.js:7:3)
+    at Immediate._onImmediate (/www/node_modules/sqlagent/index.js:19:27)
+    at processImmediate [as _immediateCallback] (timers.js:383:17)
+----------------------------------------------------> /models/password.js (modified)
+----------------------------------------------------> /models/password.js (modified)
+----------------------------------------------------> /definitions/auth.js (modified)
+----------------------------------------------------> /controllers/default.js (modified)
+----------------------------------------------------> /controllers/default.js (modified)
+----------------------------------------------------> /definitions/auth.js (modified)
+----------------------------------------------------> /controllers/default.js (modified)

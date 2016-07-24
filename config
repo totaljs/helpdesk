@@ -1,0 +1,26 @@
+name                      : HelpDesk
+version                   : 1.0.0
+author                    : Peter Širka
+
+url                       : https://helpdesk.totaljs.com
+database                  : postgres://totalsqlagent:B669fD02452Baa4b@138.201.86.196/totaljs_helpdesk
+
+superadmin                : admin:admin
+
+// Custom SMTP settings
+
+mail.smtp                 : YOUR.SMTPSERVER.COM
+// mail.smtp.options         : {"user":"","password":"","timeout":2000}
+
+mail.address.from         : support@totaljs.com
+
+auth.cookie               : __user
+auth.secret               : HeLlUser
+
+// Gmail SMTP settings
+// mail.smtp                : smtp.gmail.com
+// mail.smtp.options        : {"port":465,"secure":true,"user":"ENTER_YOUR_EMAIL","password":"ENTER_YOUR_PASSWORD","rejectUnauthorized":true}
+
+// Office365 SMTP settings
+// mail.smtp                : smtp.office365.com
+// mail.smtp.options        : {"port":587,"secure":false,"user":"ENTER_YOUR_EMAIL","password":"ENTER_YOUR_PASSWORD","tls":{"ciphers":"SSLv3"}}

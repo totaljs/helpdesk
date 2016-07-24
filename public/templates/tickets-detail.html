@@ -1,0 +1,428 @@
+<div class="container">
+	<br />
+	<div class="row">
+
+		<div class="col-lg-3 col-md-3">
+
+			<nav class="submenu mt5 m" data-component="tagger" data-component-path="ticketsdetail.detail">
+				<a href="/tickets/" class="jrouting b"><i class="fa fa-arrow-left"></i>@(Back)</a>
+				<a href="javascript:void(0)" class="hidden role-admin" data-component="click" data-component-path="ticketsdetail_minutes"><i class="fa fa-clock-o"></i>@(Add minutes)</a>
+				<a href="javascript:void(0)" class="hidden role-admin" data-component="click" data-component-path="ticketsdetail_labels"><i class="fa fa-bookmark"></i>@(Labels)</a>
+				<a href="javascript:void(0)" class="hidden role-solver" data-component="click" data-component-path="ticketsdetail_assign"><i class="fa fa-crosshairs"></i>@(Assign me)</a>
+				<a href="javascript:void(0)" class="hidden" data-name="issolved" data-visible="n => !n" data-component="click" data-component-path="ticketsdetail_close"><i class="fa fa-check-circle"></i>@(Close ticket)</a>
+				<a href="javascript:void(0)" class="hidden" data-name="issolved" data-visible="n => n" data-component="click" data-component-path="ticketsdetail_open"><i class="fa fa-recycle"></i>@(Re-open ticket)</a>
+				<a href="#comment" class="jrouting"><i class="fa fa-comment"></i>@(New comment)</a>
+				<a href="javascript:void(0)" class="jrouting" data-component="click" data-component-path="ticketsdetail_remove"><i class="fa fa-times-circle"></i>@(Remove ticket)</a>
+			</nav>
+
+			<section>
+				<label><i class="fa fa-credit-card"></i>@(Spending time)</label>
+				<div class="padding" data-component="tagger" data-component-path="ticketsdetail.detail">
+					<div class="keyvalue">
+						<div class="key"><i class="fa fa-clock-o"></i>@(This ticket)</div>
+						<div class="value" data-name="minutes" data-format="n => Tangular.helpers.pluralize(n, @('# minutes', '# minute', '# minutes', '# minutes'))">...</div>
+					</div>
+					<div class="keyvalue">
+						<div class="key"><i class="fa fa-calendar"></i>@(Current month)</div>
+						<div class="value" data-name="minutesspent" data-format="n => Tangular.helpers.pluralize(n, @('# minutes', '# minute', '# minutes', '# minutes'))">...</div>
+					</div>
+					<div class="keyvalue">
+						<div class="key"><i class="fa fa-credit-card"></i>@(Subscription)</div>
+						<div class="value" data-name="minutesuser" data-format="n => Tangular.helpers.pluralize(n, @('# minutes', '# minute', '# minutes', '# minutes'))">...</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<div class="col-lg-9 col-md-9 highlight-container">
+
+			<div data-component="tagger" data-component-path="ticketsdetail.detail">
+				<h1><i data-name="idsolver" data-visible="n => !n" class="fa fa-refresh mr10 fa-spin hidden"></i><span data-name="name">...</span><span class="badge badge-green hidden b ml10" data-name="issolved" data-visible="n => n">@(COMPLETED)</span></h1>
+				<div>
+					<span data-name="company" class="b black" data-after=" - ">...</span><span data-name="user">...</span><span data-name="position" data-before=" - " class="silver"></span>
+				</div>
+				<div><span data-name="ispriority" data-visible="n => n" class="hidden badge badge-red mr5 b">@(HIGH PRIORITY)</span><span data-name="datecreated" data-format="n => Tangular.helpers.time(n)">...</span></div>
+				<div data-name="solver" data-visible="n => n">
+					<span class="badge badge-green b upper">@(This ticket is assigned by you.)</span>
+				</div>
+				<div data-name="labels" class="mt10" data-format="n => Tangular.helpers.labels(n)"></div>
+				<hr />
+			</div>
+
+			<div data-component="visible" data-component-path="ticketsdetail.comments" data-if="!value || !value.length" class="hidden">
+				<br />
+				<div class="silver"><i class="fa fa-database mr5"></i>@(This ticket doesn't contain any comments.)</div>
+				<br />
+			</div>
+
+			<div data-component="repeater" data-component-path="ticketsdetail.comments">
+				<script type="text/html">
+					{{ if !operation }}
+					<div class="tickets-comment{{ if !iscustomer }} tickets-comments-admin{{ fi }}{{ if issolved }} tickets-comments-solution{{ fi }}">
+						<div class="author">
+							<div class="author-date">
+								{{ datecreated | time }}<i class="fa fa-clock-o"></i>
+							</div>
+							<div class="author-photo"><img src="{{ photo | photo }}" widht="35" height="35" alt="{{ user }}" /></div>
+							<div class="author-header">
+								<div class="name">{{ if !iscustomer }}<span class="badge badge-green mr5">@(support)</span>{{ fi }}{{ user }}</div>
+								<div class="company">{{ company }}{{ if position }} - {{ position }}{{ fi }}</div>
+							</div>
+						</div>
+						<div class="markdown">{{ body | markdown }}</div>
+						<i class="fa fa-thumbs-up"></i>
+						{{ if can }}
+						<div class="tickets-comment-buttons" data-id="{{ id }}">{{ if admin }}<a href="javascript:void(0)" title="@(Solution)" class="tickets-comment-buttons-operation" data-type="solution"><i class="fa fa-thumbs-up"></i></a>{{ fi }}<a href="javascript:void(0)" title="@(Edit)" class="tickets-comment-buttons-operation" data-type="edit"><i class="fa fa-pencil"></i></a><a href="javascript:void(0)" title="@(Remove)" data-type="remove" class="tickets-comment-buttons-operation"><i class="fa fa-times-circle"></i></a></div>
+						{{ fi }}
+					</div>
+					{{ fi }}
+					{{ if operation && index }}
+					<svg width="10" height="100" class="tickets-comment-line">
+						<line x1="0" y1="0" x2="0" y2="60" />
+					</svg>
+					{{ fi }}
+					{{ if operation === 1}}
+						<div class="tickets-comment-operation">
+							<img src="{{ photo | photo }}" width="30" height="30" alt="{{ user }}" /><span>{{ user }} <b>@(closed)</b></span><i class="fa fa-check-circle green"></i><span>{{ datecreated | time }}</span>
+						</div>
+					{{ fi }}
+					{{ if operation === 2}}
+						<div class="tickets-comment-operation">
+							<img src="{{ photo | photo }}" width="30" height="30" alt="{{ user }}" /><span>{{ user }} <b>@(re-open)</b></span><i class="fa fa-recycle red"></i><span>{{ datecreated | time }}</span>
+						</div>
+					{{ fi }}
+					{{ if operation === 3}}
+						<div class="tickets-comment-operation">
+							<img src="{{ photo | photo }}" width="30" height="30" alt="{{ user }}" /><span>{{ user }} @(<b>added {{ body | pluralize('# minutes', '# minute', '# minutes', '# minutes') }}</b> of work)</span><i class="fa fa-clock-o blue"></i><span>{{ datecreated | time }}</span>
+						</div>
+					{{ fi }}
+					{{ if operation === 4}}
+						<div class="tickets-comment-operation">
+							<img src="{{ photo | photo }}" width="30" height="30" alt="{{ user }}" /><span>{{ user }} @(<b>set labels</b>)</span>{{ body | labels }}<i class="fa fa-bookmark"></i><span>{{ datecreated | time }}</span>
+						</div>
+					{{ fi }}
+					{{ if operation === 5}}
+						<div class="tickets-comment-operation">
+							<img src="{{ photo | photo }}" width="30" height="30" alt="{{ user }}" /><span>{{ user }} @(<b>assigned ticket</b>)</span><i class="fa fa-crosshairs"></i><span>{{ datecreated | time }}</span>
+						</div>
+					{{ fi }}
+				</script>
+			</div>
+
+			<div id="comment">
+				<br />
+				<div data-component="codemirror" data-component-id="ticketsdetail-body" data-type="markdown" data-component-path="ticketsdetail.form.body" data-height="auto" data-required="true" data-component-value="''">@(Body)</div>
+				<div class="help">@(Editor supports <i class="fa fa-code"></i>Markdown syntax and drag &amp; drop <i class="fa fa-file-o"></i>files.)</div>
+				<br />
+				<div class="row">
+					<div class="col-md-4 m" data-component="validation" data-component-path="ticketsdetail.form" data-selector=".b">
+						<button class="button b" data-component="click" data-component-path="ticketsdetail_submit"><i class="fa fa-send"></i>@(SUBMIT)</button>
+					</div>
+					<div class="col-md-2 hidden" data-component="visible" data-component-path="ticketsdetail.form.body" data-if="value && value.length">
+						<button class="button" data-component="click" data-component-path="ticketsdetail_cancel">@(Cancel)</button>
+					</div>
+				</div>
+			</div>
+			<br />
+		</div>
+	</div>
+</div>
+
+<div data-component="form" data-title="@(Add spent minutes)" data-component-path="common.form" data-if="value === 'minutes'" data-width="500px" data-component-id="minutes.form" data-autocenter="true">
+	<div class="padding fade" data-component="tagger" data-component-path="ticketsdetail.detail">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="keyvalue">
+					<div class="key">@(Current month)</div>
+					<div class="value" data-name="minutesspent" data-format="n => Tangular.helpers.pluralize(n, @('# minutes', '# minute', '# minutes', '# minutes'))">...</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="keyvalue">
+					<div class="key">@(This ticket)</div>
+					<div class="value" data-name="minutes" data-format="n => Tangular.helpers.pluralize(n, @('# minutes', '# minute', '# minutes', '# minutes'))">...</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="keyvalue">
+					<div class="key">@(Subscription)</div>
+					<div class="value" data-name="minutesuser" data-format="n => Tangular.helpers.pluralize(n, @('# minutes', '# minute', '# minutes', '# minutes'))">...</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="padding npt">
+		<div class="silver"><i class="fa fa-clock-o mr5"></i>@(How many minutes do you spent on this ticket?)</div>
+		<br />
+		<div class="row">
+			<div class="col-md-5 m">
+				<div data-component="textbox" data-component-path="ticketsdetail.minutes.minutes" data-required="true" data-maxlength="4" data-align="center" data-increment="true" data-component-value="0">@(Spent minutes)</div>
+			</div>
+			<div class="col-md-7">
+			</div>
+		</div>
+	</div>
+	<div data-component="error" data-component-path="ticketsdetail.minutes.response"></div>
+	<div class="ui-form-buttons">
+		<div data-component="validation" data-component-path="ticketsdetail.minutes" class="inline">
+			<button name="submit">@(SUBMIT)</button>
+		</div>
+		<button name="cancel">@(Cancel)</button>
+	</div>
+</div>
+
+<div data-component="form" data-title="@(Set labels)" data-component-path="common.form" data-if="value === 'labels'" data-width="400px" data-component-id="labels.form" data-autocenter="true">
+	<div class="padding npt">
+		<div data-component="checkboxlist" data-component-path="ticketsdetail.labels.labels" data-source="common.cdl.labels" data-class="col-md-12 tickets-form-label" class="row mt10">Labels</div>
+	</div>
+	<div data-component="error" data-component-path="ticketsdetail.labels.response"></div>
+	<div class="ui-form-buttons">
+		<div data-component="validation" data-component-path="ticketsdetail.labels" class="inline">
+			<button name="submit">@(SUBMIT)</button>
+		</div>
+		<button name="cancel">@(Cancel)</button>
+	</div>
+</div>
+
+<script>
+
+	var ticketsdetail = {};
+
+	ticketsdetail.form = {};
+
+	$(document).on('click', '.tickets-comment-buttons-operation', function() {
+		var el = $(this);
+		var id = el.parent().attr('data-id');
+		switch (el.attr('data-type')) {
+			case 'edit':
+				var comment = ticketsdetail.comments.findItem('id', id);
+				if (!comment)
+					return;
+				ticketsdetail.form.id = comment.id;
+				SET('ticketsdetail.form.body', comment.body);
+				location.hash = '';
+				setTimeout(function() {
+					location.hash = '#comment';
+				}, 100);
+				break;
+			case 'solution':
+				ticketsdetail_solution(el.closest('.tickets-comment').hasClass('tickets-comments-solution') ? '' : id);
+				break;
+
+			case 'remove':
+				FIND('confirm').confirm('@(Are you sure you want to remove this comment?)', ['@(Yes)', '@(Cancel)'], function(index) {
+					if (index)
+						return;
+					SETTER('loading', 'show');
+					AJAX('DELETE /api/comments/{0}/'.format(id), function(response) {
+						SETTER('loading', 'hide', 1000);
+						if (!response.success)
+							return;
+						ticketdetail_refresh();
+						EXEC('success');
+					});
+				});
+				break;
+		}
+	});
+
+	$('#comment').on('dragenter dragover dragexit drop dragleave', function (e) {
+
+		var el = $(this);
+
+		e.stopPropagation();
+		e.preventDefault();
+
+		switch (e.type) {
+			case 'drop':
+				break;
+			case 'dragenter':
+			case 'dragover':
+				el.addClass('dragdrop');
+				return;
+			case 'dragexit':
+			case 'dragleave':
+				el.removeClass('dragdrop');
+				return;
+			default:
+				return;
+		}
+
+		var files = e.originalEvent.dataTransfer.files;
+		var data = new FormData();
+		for (var i = 0, length = files.length; i < length; i++)
+			data.append('file' + i, files[i]);
+
+		SETTER('loading', 'show');
+		COM.UPLOAD('/api/upload/', data, function(response, err) {
+			SETTER('loading', 'hide', 1000);
+
+			for (var i = 0, length = response.length; i < length; i++) {
+				var file = response[i];
+				file = '/download/{0}'.format(file);
+
+				if (file.match(/\.(jpeg|jpg|gif|png)/))
+					file = '![{1}]({0})'.format(file, files[i].name);
+				else
+					file = '[{1}]({0})'.format(file, files[i].name);
+
+				response[i] = file;
+			}
+
+			FIND('#ticketsdetail-body').append(response.join(''));
+		});
+
+	});
+
+	function ticketsdetail_init() {
+		SETTER('loading', 'hide', 500);
+		if (ticketsdetail.detail && ticketsdetail.detail.id === jR.params[0])
+			return;
+		ticketdetail_refresh();
+		$('.role-admin').toggleClass('hidden', user.iscustomer);
+	}
+
+	function ticketdetail_refresh() {
+		SETTER('loading', 'show');
+		AJAX('GET /api/tickets/{0}/'.format(jR.params[0]), function(response) {
+			SETTER('loading', 'hide', 500);
+
+			if (response instanceof Array)
+				return jR.redirect('/tickets/');
+
+			response.comments.forEach(function(comment) {
+				comment.can = comment.iduser === user.id || !user.iscustomer;
+				comment.admin = !user.iscustomer;
+			});
+
+			response.detail.solver = response.detail.idsolver === user.id;
+
+			$('.role-solver').toggleClass('hidden', response.detail.solver || user.iscustomer);
+
+			EXTEND('ticketsdetail', response);
+			setTimeout(function() {
+				highlight('.highlight-container');
+			}, 500);
+		});
+	}
+
+	function ticketsdetail_submit() {
+		ticketsdetail.form.idticket = jR.params[0];
+		SETTER('loading', 'show');
+		AJAX('POST /api/comments/'.format(jR.params[0]), ticketsdetail.form, function(response) {
+			SETTER('loading', 'hide', 1000);
+			SET('ticketsdetail.form.response', response);
+			if (response instanceof Array)
+				return;
+			ticketdetail_refresh();
+			DEFAULT('ticketsdetail.form.*');
+		});
+	}
+
+	function ticketsdetail_open() {
+		SETTER('loading', 'show');
+		AJAX('GET /api/tickets/{0}/open/'.format(jR.params[0]), function(response) {
+			SETTER('loading', 'hide', 1000);
+			if (response.success) {
+				EXEC('tickets_refresh')('success');
+				ticketdetail_refresh();
+			}
+		});
+	}
+
+	function ticketsdetail_solution(id) {
+		AJAX('POST /api/comments/solution/', { idticket: jR.params[0], idcomment: id }, function(response) {
+			if (response.success) {
+				ticketdetail_refresh();
+				EXEC('success');
+			}
+		});
+	}
+
+	function ticketsdetail_assign() {
+		SETTER('loading', 'show');
+		AJAX('GET /api/tickets/{0}/assign/'.format(jR.params[0]), function(response) {
+			SETTER('loading', 'hide', 1000);
+			ticketdetail_refresh();
+			EXEC('tickets_refresh')('success');
+		});
+	}
+
+	function ticketsdetail_minutes() {
+		if (user.iscustomer)
+			return;
+		SET('ticketsdetail.minutes', {}, true);
+		SET('common.form', 'minutes');
+	}
+
+	function ticketsdetail_close() {
+		SETTER('loading', 'show');
+		AJAX('GET /api/tickets/{0}/close/'.format(jR.params[0]), function(response) {
+			SETTER('loading', 'hide', 1000);
+			if (response.success) {
+				EXEC('tickets_refresh')('success');
+				ticketdetail_refresh();
+			}
+		});
+	}
+
+	function ticketsdetail_remove() {
+		FIND('confirm').confirm('@(Are you sure you want to remove this ticket?)', ['@(Yes)', '@(Cancel)'], function(index) {
+			if (index)
+				return;
+			SETTER('loading', 'show');
+			AJAX('DELETE /api/tickets/{0}/'.format(jR.params[0]), function(response) {
+				SETTER('loading', 'hide', 1000);
+				if (response.success) {
+					EXEC('tickets_refresh')('success');
+					jR.redirect('/tickets/');
+				}
+			});
+		});
+	}
+
+	function ticketsdetail_labels() {
+		if (user.iscustomer)
+			return;
+		SET('ticketsdetail.labels.labels', ticketsdetail.detail.labels ? ticketsdetail.detail.labels.split(',') : [], true);
+		SET('common.form', 'labels');
+	}
+
+	function ticketsdetail_cancel() {
+		delete ticketsdetail.form.id;
+		DEFAULT('ticketsdetail.form.*');
+	}
+
+	ON('#minutes.form', function(component) {
+		component.submit = function(hide) {
+			ticketsdetail.minutes.idticket = ticketsdetail.detail.id;
+			SETTER('loading', 'show');
+			AJAX('POST /api/tickets/minutes/', ticketsdetail.minutes, function(response) {
+				SETTER('loading', 'hide', 1000);
+				SET('ticketsdetail.minutes.response', response);
+				if (response instanceof Array)
+					return;
+				ticketdetail_refresh();
+				EXEC('tickets_refresh')('success');
+				hide();
+			});
+		};
+	});
+
+	ON('#labels.form', function(component) {
+		component.submit = function(hide) {
+			ticketsdetail.labels.idticket = ticketsdetail.detail.id;
+			SETTER('loading', 'show');
+			AJAX('POST /api/tickets/labels/', ticketsdetail.labels, function(response) {
+				SETTER('loading', 'hide', 1000);
+				SET('ticketsdetail.labels.response', response);
+				if (response instanceof Array)
+					return;
+				ticketdetail_refresh();
+				EXEC('tickets_refresh')('success');
+				hide();
+			});
+		};
+	});
+
+</script>

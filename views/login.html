@@ -1,0 +1,130 @@
+@{layout('')}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>@{config.name} v@{config.version}</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=11" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="noindex, nofollow" />
+	<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,700" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+	<script src="//code.jquery.com/jquery-3.0.0.min.js"></script>
+	@{import('meta', 'head', 'login.css', 'login.js', 'favicon.ico')}
+</head>
+<body>
+
+	<div data-component="message" data-button="@(Close)"></div>
+	<div data-component="confirm"></div>
+	<div data-component="loading" class="hidden"></div>
+
+	<div class="center-container">
+		<div class="center-body">
+			<div class="form">
+				<div style="line-height:0">
+					<div class="logo">
+						<svg width="80px" height="80px" viewBox="0 0 200 200" version="1.1" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"><path d="M74.819,0l-74.819,43.266l0,86.532l74.819,43.265l75.181,-43.265l0,-86.532l-75.181,-43.266ZM74.318,54.683l27.682,15.924l0,32.049l-27.682,16.025l-27.818,-16.025l0,-32.049l27.818,-15.924Z" style="fill:white;fill-rule:nonzero;"/><path d="M37.049,21.598l-37.049,21.552l0,86.532l37.103,21.578l22.147,-38.642l0,0.046l-29.934,0l14.953,-26.248l-14.953,-26.252l29.934,0l0,0.103l-22.201,-38.669Z" style="fill:white;fill-rule:nonzero;"/><path d="M33.633,63.164l12.697,23.005l-12.697,23.495l26.936,0l13.49,-23.453l-13.49,-23.047l-26.936,0Z" style="fill:#E0E0E0;fill-rule:nonzero;"/></svg>
+						<h1><b>@{config.name}</b> v@{config.version}</h1>
+					</div>
+					<svg style="width:100%" viewBox="0 0 1170 30" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h1170s-441.424 30-578.518 30c-137.094 0-591.482-30-591.482-30z" fill="#A0D468"/></svg>
+				</div>
+
+				<div data-component="visible" data-component-path="password.response" data-if="value && value.success" class="success hidden">
+					<i class="fa fa-check-circle"></i>@(We sent you an email with instructions for resetting password.)
+				</div>
+
+				<div class="padding signin" data-component="visible" data-component-path="common.form" data-if="value === 'signin'">
+					<div data-component="textbox" data-component-path="signin.email" data-required="true" data-component-value="'@'" data-component-type="email">@(Email address)</div>
+					<br />
+					<div data-component="textbox" data-component-path="signin.password" data-component-type="password" data-required="true" data-component-value="''">@(Password)</div>
+					<br />
+					<ul class="links">
+						<li><span class="fa fa-lock"></span> <a href="javascript:void(0)" data-component="click" data-component-path="common.form" data-value="password">@(I can't access my account)</a></li>
+						<li><span class="fa fa-question-circle"></span> <a href="https://www.totaljs.com/support/" target="_blank">@(Help)</a></li>
+					</ul>
+					<div data-component="error" data-component-path="signin.response"></div>
+					<div data-component="validation" data-component-path="signin">
+						<button class="ui-button" disabled="disabled" data-component="click" data-component-path="doLogin" data-enter=".signin" style="margin-top:8px;width:100%">@(SIGN IN)</button>
+					</div>
+				</div>
+
+				<div class="padding hidden password" data-component="visible" data-component-path="common.form" data-if="value === 'password'">
+					<div data-component="textbox" data-component-path="password.email" data-required="true" data-component-value="'@'" data-component-type="email">@(Email address)</div>
+					<br />
+					<ul class="links">
+						<li><span class="fa fa-lock"></span> <a href="javascript:void(0)" data-component="click" data-component-path="common.form" data-value="signin">@(I know my access into the account)</a></li>
+						<li><span class="fa fa-question-circle"></span> <a href="javascript:void(0)">@(Help)</a></li>
+					</ul>
+					<div data-component="error" data-component-path="password.response"></div>
+					<div data-component="validation" data-component-path="password">
+						<button class="ui-button" disabled="disabled" data-component="click" data-component-path="doPassword" data-enter=".password" style="margin-top:8px;width:100%">@(SIGN IN)</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+
+	var signin = {};
+	var common = { form: 'signin' };
+	var qs = jC.parseQuery();
+
+	$(document).ready(function() {
+
+		if (qs.token) {
+			doToken();
+			return;
+		}
+
+		FIND('loading', function(component) {
+			component.hide(500);
+		});
+
+	});
+
+	function doLogin() {
+		SETTER('loading', 'show');
+		AJAX('POST /api/login/', signin, function(response) {
+			SET('signin.response', response);
+			if (response.success)
+				location.href = '/';
+			else
+				SETTER('loading', 'hide', 1000);
+		});
+	}
+
+	function doToken() {
+		SETTER('loading', 'show');
+		AJAX('POST /api/token/', qs, function(response) {
+			if (response.success)
+				location.href = '/account/?password=1';
+			else
+				SETTER('loading', 'hide', 1000);
+		});
+	}
+
+	function doPassword() {
+		if (BLOCKED('login', 3000))
+			return;
+		RESET('password.*');
+		SETTER('loading', 'show');
+		AJAX('POST /api/password/', password, function(response) {
+			SETTER('loading', 'hide', 1000);
+			SET('password.response', response);
+			if (response.success)
+				SET('common.form', 'signin');
+		});
+	}
+
+	setTimeout(function() {
+		$('.form').addClass('form-visible');
+	}, 500);
+
+	</script>
+
+</body>
+</html>

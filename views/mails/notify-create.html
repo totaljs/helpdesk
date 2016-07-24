@@ -1,0 +1,8 @@
+@{layout('~mails/layout')}
+
+<div style="font-size:20px;color:#A0A0A0"><b>@{model.ticket.name}</b></div>
+<br />
+<div>@(The ticket has been created by @{model.user.name}.)</div>
+<br />
+<div><b>@(For more information click here:)</b></div>
+<div><a href="@{config.url}/tickets/@{model.ticket.id}/">@{config.url}/tickets/@{model.ticket.id}/</a></div>

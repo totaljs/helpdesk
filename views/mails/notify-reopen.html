@@ -1,0 +1,8 @@
+@{layout('~mails/layout')}
+
+<div style="font-size:20px;color:#A0A0A0">@(Ticket: <b>Re-Opened</b>)</div>
+<br />
+<div>@(The ticket &quot;<b>@{model.ticket.name}</b>&quot; has been re-opened by @{model.user.name}. <b>Please review it</b>.)</div>
+<br />
+<div><b>@(For more information click here:)</b></div>
+<div><a href="@{config.url}/tickets/@{model.ticket.id}/">@{config.url}/tickets/@{model.ticket.id}/</a></div>

@@ -1,0 +1,159 @@
+<div class="container-empty"></div>
+<div class="hidden-xs"><br /><br /></div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<section>
+				<label><i class="fa fa-user"></i>@(My account)</label>
+				<div>
+					<div class="padding npb">
+						<div class="center">
+							<br />
+							<div data-component="photoupload" data-component-path="account.photo" data-url="/api/upload/" data-upload-error="@(The file is too large.)"></div>
+							<div class="help">@(Click on the photo for its change.)</div>
+						</div>
+					</div>
+					<hr />
+					<div class="padding npb npt" data-component="tagger" data-component-path="tickets.user">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="keyvalue">
+									<div class="key"><i class="fa fa-clock-o"></i>@(Spent minutes)</div>
+									<div class="value" data-name="minutesspent" data-format="n => Tangular.helpers.pluralize(n, @('# minutes', '# minute', '# minutes', '# minutes'))">...</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="keyvalue">
+									<div class="key"><i class="fa fa-credit-card"></i>@(Subscription)</div>
+									<div class="value" data-name="minutesuser" data-format="n => Tangular.helpers.pluralize(n, @('# minutes', '# minute', '# minutes', '# minutes'))">...</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="padding npb">
+						<div class="row">
+							<div class="col-md-6 m">
+								<div data-component="textbox" data-component-path="account.name" data-maxlength="50" data-required="true">@(Account name)</div>
+							</div>
+							<div class="col-md-6 m">
+								<div data-component="textbox" data-component-path="account.email" data-component-type="email" data-maxlength="200" data-required="true">@(Email address)</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 m">
+								<div data-component="textbox" data-component-path="account.company" data-maxlength="50" class="m">@(Company)</div>
+							</div>
+							<div class="col-md-6 m">
+								<div data-component="textbox" data-component-path="account.position" data-maxlength="50" class="m" data-placeholder="@(e.g. Web Developer)">@(Position)</div>
+							</div>
+						</div>
+						<hr class="nmt" />
+						<div data-component="checkbox" data-component-path="account.isnotification">@(Enable email notifications)</div>
+						<div data-component="checkbox" data-component-path="account.ispassword" class="m">@(I want to change my password)</div>
+					</div>
+					<div data-component="visible" data-component-path="account.ispassword" class="bg-smoke padding m">
+						<div class="help"><i class="fa fa-warning"></i>@(Be carefully with changing your password and don't forgot to sign in with a new password.)</div>
+						<br />
+						<div data-component="disable" data-component-path="account.ispassword" data-if="!value">
+							<div class="row">
+								<div class="col-md-6 m">
+									<div data-component="textbox" data-component-path="account.password" data-required="true" data-component-type="password" data-maxlength="30">@(Password)</div>
+								</div>
+								<div class="col-md-6 m">
+									<div data-component="textbox" data-component-path="account.passwordreply" data-required="true" data-component-type="password" data-maxlength="30">@(Password again)</div>
+								</div>
+							</div>
+							<div data-component="password-progress" data-component-path="account.password" class="fs11">@(Password strength:)</div>
+						</div>
+					</div>
+					<div class="padding npt">
+						<div class="row">
+							<div class="col-md-12" data-component="validation" data-component-path="account" data-if="!value.ispassword || (value.password && value.password === value.passwordreply)">
+								<button class="button upper" disabled="disabled" data-component="click" data-component-path="account_save">@(Save)</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+	</div>
+</div>
+
+<script>
+	var account = {};
+
+	function account_refresh() {
+		account.ispassword = jC.parseQuery().password === '1';
+		SETTER('loading', 'show');
+		AJAX('GET /api/account/', function(response) {
+			SETTER('loading', 'hide', 1000);
+			EXTEND('account', response);
+		});
+
+		if (!window.tickets || !window.tickets.user)
+			AJAXCACHE('GET /api/account/minutes/', null, 'tickets.user', '2 minutes');
+	}
+
+	function account_save() {
+		if (!jC.valid('account.*') || BLOCKED('account', 3000))
+			return;
+		SETTER('loading', 'show');
+		AJAX('POST /api/account/', account, function(response) {
+			SETTER('loading', 'hide', 1000);
+			if (!response.success)
+				return;
+			SET('account.ispassword', false);
+			RESET('account.*');
+			success();
+		});
+	}
+
+	COMPONENT('password-progress', function() {
+		var self = this;
+		var div;
+		self.readonly();
+		self.make = function() {
+			self.append('<div style="height:6px;border-radius:4px;margin-top:4px"></div>');
+			div = self.find('div');
+			self.render(0);
+		};
+
+		self.render = function(value) {
+
+			if (!value) {
+				self.element.addClass('hidden');
+				return;
+			}
+
+			self.element.removeClass('hidden');
+			var color = 'red';
+			if (value >= 40 && value <= 60)
+				color = 'orange';
+			if (value > 60)
+				color = 'green';
+			div.css({ 'background-color': color, width: value + '%' });
+		};
+
+		self.setter = function(value) {
+			if (!value)
+				return self.render(0);
+			var points = 0;
+			var max = 6;
+			if (value.match(/\d+/))
+				points++;
+			if (value.match(/[a-z]/g))
+				points++;
+			if (value.match(/[A-Z]/g))
+				points++;
+			if (value.match(/[\*\&\{\}\]\[\~\$\@\+\-\_\<\>\.\,\!\/\\\=\#]/g))
+				points++;
+			if (value.length > 5)
+				points++;
+			if (value.length > 7)
+				points++;
+			if (value === '123456' || value === '12345678')
+				points = 2;
+			self.render(Math.round((points / max) * 100));
+		};
+	});
+</script>

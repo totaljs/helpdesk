@@ -1,0 +1,98 @@
+@{layout('')}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>@{config.name} v@{config.version}</title>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=10" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="robots" content="all,follow" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,700&subset=latin,latin-ext" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.6.0/codemirror.min.css" />
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css" />
+	@{import('head', 'default.css', 'favicon.ico')}
+	<script>
+		var user=JSON.parse('@{json(user)}');
+	</script>
+</head>
+<body>
+
+	<div id="success"><span class="fa fa-check-circle"></span></div>
+	<div data-component="message" data-button="@(Close)"></div>
+	<div data-component="confirm"></div>
+	<div data-component="loading" class="ui-loading"></div>
+
+	<header>
+		<div class="mainmenu">
+			<div><b>@{config.name}</b> v@{config.version}</div>
+			<a href="javascript:mainmenu()" class="mainmenu-button"><span class="fa fa-navicon"></span></a>
+		</div>
+		@{if user.photo}<div class="photo"><a href="/" class="jrouting"><img src="/photos/@{user.photo}.jpg" class="img-responsive img-rounded" alt="@{user.name}" border="0" /></a></div>@{fi}
+		<nav>
+			<a class="jrouting" href="/tickets/" title="@(Tickets)" data-role="tickets"><span class="fa fa-bug"></span></a>
+			<a class="jrouting" href="/account/" title="@(Account)" data-role="account"><span class="fa fa-cogs"></span></a>
+			@{if user.isadmin}
+			<a class="jrouting" href="/users/" title="@(Users)" data-role="users"><span class="fa fa-users"></span></a>
+			@{fi}
+			<a href="https://www.totaljs.com/support/" title="@(Contact)" target="_blank"><span class="fa fa-support"></span></a>
+			<a class="logoff" href="/logoff/" title="@(Sign out)"><span class="fa fa-power-off"></span></a>
+		</nav>
+	</header>
+
+	<div id="body">
+		<div data-component="page" data-component-path="common.page" data-if="tickets" data-template="/templates/tickets.html"></div>
+		<div data-component="page" data-component-path="common.page" data-if="tickets-detail" data-template="/templates/tickets-detail.html" data-reload="ticketsdetail_init"></div>
+		<div data-component="page" data-component-path="common.page" data-if="users" data-template="/templates/users.html" data-reload="users_reload"></div>
+		<div data-component="page" data-component-path="common.page" data-if="account" data-template="/templates/account.html" data-reload="account_refresh"></div>
+	</div>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.2/codemirror.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.2/mode/javascript/javascript.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.2/mode/htmlmixed/htmlmixed.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.2/mode/xml/xml.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.2/mode/css/css.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.2/mode/markdown/markdown.min.js"></script>
+
+	@{import('default.js')}
+
+	<script>
+		Tangular.register('time', function(value) {
+			var diff = Date.now() - value.parseDate().getTime();
+			var minutes = ((diff / 1000) / 60) >> 0;
+
+			if (minutes < 60) {
+				if (minutes < 3)
+					return '@(now)';
+				return @(minutes + ' minutes ago');
+			}
+
+			var hours = (minutes / 60) >> 0;
+			if (hours < 24)
+				return @(hours + ' ' + Tangular.helpers.pluralize(hours, 'hours', 'hour', 'hours', 'hours') + ' ago');
+
+			var days = (hours / 24) >> 0;
+			if (days < 30)
+				return @(days + ' ' + Tangular.helpers.pluralize(days, 'days', 'day', 'days', 'days') + ' ago');
+
+			var months = (days / 29) >> 0;
+			if (months < 12)
+				return @(months + ' ' + Tangular.helpers.pluralize(months, 'months', 'month', 'months', 'months') + ' ago');
+
+			var years = (month / 12) >> 0;
+			return @(years + ' ' + Tangular.helpers.pluralize(years, 'years', 'year', 'years', 'years') + ' ago');
+		});
+
+		Tangular.register('month', function(value) {
+			var months = ['january', 'february', 'march', 'april', 'may', 'juny', 'july', 'august', 'september', 'october', 'november', 'december'];
+			return months[value - 1];
+		});
+	</script>
+
+</body>
+</html>
