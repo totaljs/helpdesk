@@ -39,10 +39,23 @@ exports.install = function() {
 function json_cdl() {
 	var self = this;
 	var model = {};
-	model.projects = ['Total.js', 'jComponent', 'Eshop + CMS', 'SuperAdmin', 'OpenPlatform', 'Adminer', 'HelpDesk'];
-	model.labels = ['waiting for more info', 'bug', 'wontfix', 'duplicate', 'invalid', 'question', 'enhancement'];
-	model.languages = ['en'];
-	self.json(model);
+
+	var sql = DB();
+
+	sql.select('labels', 'cdl_label');
+	sql.select('projects', 'cdl_project');
+	sql.select('languages', 'cdl_language');
+
+	sql.exec(function(err, response) {
+
+		if (err)
+			return self.invalid().push(err);
+
+		response.labels = response.labels.map(n => n.name);
+		response.projects = response.projects.map(n => n.name);
+		response.languages = response.languages.map(n => n.name);
+		self.json(response);
+	});
 }
 
 function json_query() {
