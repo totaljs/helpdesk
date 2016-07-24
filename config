@@ -3,7 +3,7 @@ version                   : 1.0.0
 author                    : Peter Širka
 
 url                       : https://helpdesk.totaljs.com
-database                  : postgres://totalsqlagent:B669fD02452Baa4b@138.201.86.196/totaljs_helpdesk
+database                  : YOUR-CONNECTION-STRING-TO-POSTGRESQL
 
 superadmin                : admin:admin
 
