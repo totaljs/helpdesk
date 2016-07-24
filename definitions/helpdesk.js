@@ -151,7 +151,7 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 			// new ticket
 			response.support.forEach(function(item) {
 
-				if (item.id === user.id)
+				if (item.iduser === user.id)
 					return;
 
 				var message = Mail.create('New ticket: {0}'.format(response.ticket.name.max(50)), F.view('mails/notify-create', response));
@@ -171,7 +171,7 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 			// new comment
 			response.users.forEach(function(item) {
 
-				if (item.id === user.id)
+				if (item.iduser === user.id)
 					return;
 
 				var message = Mail.create('New comment: {0}'.format(response.ticket.name.max(50)), F.view('mails/notify-comment', response));
