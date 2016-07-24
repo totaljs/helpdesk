@@ -39,10 +39,10 @@
 			<div data-component="tagger" data-component-path="ticketsdetail.detail">
 				<h1><i data-name="idsolver" data-visible="n => !n" class="fa fa-refresh mr10 fa-spin hidden"></i><span data-name="name">...</span><span class="badge badge-green hidden b ml10" data-name="issolved" data-visible="n => n">@(COMPLETED)</span></h1>
 				<div>
-					<span data-name="company" class="b black" data-after=" - ">...</span><span data-name="user">...</span><span data-name="position" data-before=" - " class="silver"></span>
+					<span data-name="company" class="b black" data-after=" - "></span><span data-name="user">...</span><span data-name="position" data-before=" - " class="silver"></span>
 				</div>
 				<div><span data-name="ispriority" data-visible="n => n" class="hidden badge badge-red mr5 b">@(HIGH PRIORITY)</span><span data-name="datecreated" data-format="n => Tangular.helpers.time(n)">...</span></div>
-				<div data-name="solver" data-visible="n => n">
+				<div data-name="solver" data-visible="n => n" class="hidden">
 					<span class="badge badge-green b upper">@(This ticket is assigned by you.)</span>
 				</div>
 				<div data-name="labels" class="mt10" data-format="n => Tangular.helpers.labels(n)"></div>

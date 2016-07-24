@@ -2431,7 +2431,7 @@ COMPONENT('tagger', function() {
 				return;
 			}
 
-			val = val === null || val === undefined ? '' : val.toString();
+			val = val == null ? '' : val.toString();
 
 			if (val && !format)
 				val = Ta.helpers.encode(val);

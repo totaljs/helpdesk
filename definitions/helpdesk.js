@@ -59,16 +59,11 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 
 	// Select owner
 	sql.prepare(function(error, response, resume) {
-
-		if (response.users.findIndex('id', response.ticket.iduser) !== -1)
-			return resume();
-
 		sql.select('owner', 'tbl_user').make(function(builder) {
 			builder.fields('id as iduser', 'email', 'company', 'position');
 			builder.where('id', response.ticket.iduser);
 			builder.first();
 		});
-
 		resume();
 	});
 

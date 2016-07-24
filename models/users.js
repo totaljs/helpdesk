@@ -1,7 +1,7 @@
 NEWSCHEMA('User').make(function(schema) {
 
 	schema.define('id', 'UID');
-	schema.define('photo', 'String(30)', true);
+	schema.define('photo', 'String(30)');
 	schema.define('name', 'String(50)', true);
 	schema.define('email', 'Email', true);
 	schema.define('company', 'String(50)');

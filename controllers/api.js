@@ -31,9 +31,9 @@ exports.install = function() {
 	// Common
 	F.route('/api/cdl/',                  json_cdl,              ['authorize']);
 	F.route('/api/upload/',               json_upload,           ['authorize', 'upload'], 1024 * 2);
-	F.route('/api/login/',                json_exec,             ['authorize', '*Login', 'post']);
-	F.route('/api/password/',             json_exec,             ['authorize', '*Password', 'post']);
-	F.route('/api/token/',                json_exec,             ['authorize', '*Token', 'post']);
+	F.route('/api/login/',                json_exec,             ['unauthorize', '*Login', 'post']);
+	F.route('/api/password/',             json_exec,             ['unauthorize', '*Password', 'post']);
+	F.route('/api/token/',                json_exec,             ['unauthorize', '*Token', 'post']);
 };
 
 function json_cdl() {
