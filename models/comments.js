@@ -30,6 +30,7 @@ NEWSCHEMA('Comment').make(function(schema) {
 			if (create) {
 				model.id = UID();
 				builder.set(model);
+				builder.set('ip', controller.ip);
 				builder.set('iduser', controller.user.id);
 				return;
 			}

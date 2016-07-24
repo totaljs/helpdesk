@@ -3,15 +3,14 @@ version                   : 1.0.0
 author                    : Peter Širka
 
 url                       : https://helpdesk.totaljs.com
-database                  : YOUR-CONNECTION-STRING-TO-POSTGRESQL
+database                  : postgres://totalsqlagent:B669fD02452Baa4b@138.201.86.196/totaljs_helpdesk
 
 superadmin                : admin:admin
 
 // Custom SMTP settings
 
-mail.smtp                 : YOUR.SMTPSERVER.COM
-// mail.smtp.options         : {"user":"","password":"","timeout":2000}
-
+mail.smtp                 : mail.858project.com
+mail.smtp.options         : {"user":"noreply@858project.com","password":"no1234reply","timeout":2000}
 mail.address.from         : support@totaljs.com
 
 auth.cookie               : __user

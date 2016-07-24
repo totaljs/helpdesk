@@ -120,6 +120,7 @@ NEWSCHEMA('Ticket').make(function(schema) {
 			if (create) {
 				model.id = UID();
 				builder.set(model);
+				builder.set('ip', controller.ip);
 				builder.set('iduser', controller.user.id);
 				builder.set('company', controller.user.company);
 				return;
