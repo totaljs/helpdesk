@@ -53,7 +53,7 @@ NEWSCHEMA('User').make(function(schema) {
 			}
 
 			options.search && builder.like('search', options.search, '*');
-			builder.fields('id', 'name', 'photo', 'email', 'company', 'iscustomer', 'minutes', 'position', 'isactivated', 'isadmin', 'ispriority', 'datecreated', 'dateupdated');
+			builder.fields('id', 'name', 'photo', 'email', 'company', 'iscustomer', 'minutes', 'position', 'isactivated', 'isadmin', 'ispriority', 'datecreated', 'dateupdated', 'isconfirmed');
 			builder.sort('datecreated', true);
 			builder.where('isremoved', false);
 			builder.skip(skip);
