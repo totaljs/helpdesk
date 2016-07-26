@@ -1,5 +1,7 @@
 # Installation
 
+__HelpDesk__ needs latest Total.js from NPM `+v2.0.1`.
+
 - `npm install total.js`
 - `npm install pg`
 - `npm install sqlagent`
