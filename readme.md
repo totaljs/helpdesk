@@ -1,4 +1,5 @@
 [![MIT License][license-image]][license-url]
+
 [![Support](https://www.totaljs.com/img/button-support.png)](https://www.totaljs.com/support/)
 
 # Installation
