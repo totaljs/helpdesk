@@ -10,3 +10,14 @@
 __Login__:
 - user: `support@totaljs.com`
 - password: `123456`
+
+---
+
+## How do I to translate HelpDesk?
+
+- install Total.js as global module `npm install -g total.js`
+- then open HelpDesk directory `cd helpdesk`
+- then perform this command `totaljs --translate`
+- translate translated file `translate.resource`
+- and copy the content to `/resources/default.resource`
+- run app
