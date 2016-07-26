@@ -1,4 +1,4 @@
-const SESSION = {};
+F.SESSION = {};
 
 F.onAuthorize = function(req, res, flags, callback) {
 
@@ -7,7 +7,7 @@ F.onAuthorize = function(req, res, flags, callback) {
 	if (!obj)
 		return callback(false);
 
-	var session = SESSION[obj.id];
+	var session = F.SESSION[obj.id];
 	if (session) {
 		session.date = F.datetime.getTime();
 		return callback(true, session);
@@ -36,13 +36,8 @@ F.onAuthorize = function(req, res, flags, callback) {
 		if (err || !response)
 			return callback(false);
 
-		session = SESSION[obj.id] = response;
+		session = F.SESSION[obj.id] = response;
 		session.date = F.datetime.getTime();
-		session.logoff = function(controller) {
-			delete SESSION[obj.id];
-			controller && controller.cookie(CONFIG('auth.cookie'), '', '-1 day');
-		};
-
 		callback(true, session);
 	}, 'item');
 };
@@ -54,9 +49,9 @@ F.on('service', function(interval) {
 
 	var now = Date.now() - 600000;
 
-	Object.keys(SESSION).forEach(function(key) {
-		if (SESSION[key].date < now)
-			delete SESSION[key];
+	Object.keys(F.SESSION).forEach(function(key) {
+		if (F.SESSION[key].date < now)
+			delete F.SESSION[key];
 	});
 
 });

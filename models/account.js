@@ -42,6 +42,13 @@ NEWSCHEMA('Account').make(function(schema) {
 		});
 
 		sql.validate('item', 'error-user-404');
+
+		sql.update('tbl_user_project').make(function(builder) {
+			builder.set('company', model.company);
+			builder.where('iduser', controller.user.id);
+			builder.where('company', '<>', model.company);
+		});
+
 		sql.exec((err, response) => callback(SUCCESS(true)), 'user');
 	});
 

@@ -109,6 +109,16 @@ WITH (
   OIDS=FALSE
 );
 
+CREATE TABLE public.tbl_user_project
+(
+  iduser character varying(30),
+  company character varying(50),
+  name character varying(30)
+)
+WITH (
+  OIDS=FALSE
+);
+
 CREATE TABLE public.cdl_project
 (
    name character varying(30),
@@ -185,6 +195,29 @@ CREATE OR REPLACE VIEW public.view_ticket_comment AS
     b."position"
    FROM tbl_ticket_comment a
      JOIN tbl_user b ON a.iduser::text = b.id::text
+  WHERE a.isremoved = false;
+
+CREATE OR REPLACE VIEW public.view_user AS
+ SELECT a.id,
+    a.name,
+    a.photo,
+    a.email,
+    a.company,
+    a.iscustomer,
+    a.minutes,
+    a."position",
+    a.isactivated,
+    a.isconfirmed,
+    a.isadmin,
+    a.ispriority,
+    a.datecreated,
+    a.dateupdated,
+    a.datelogged,
+    ( SELECT sum(tbl_time.minutes) AS sum
+           FROM tbl_time
+          WHERE (tbl_time.iduser::text = a.id::text OR tbl_time.idsolver::text = a.id::text) AND tbl_time.year::double precision = date_part('year'::text, 'now'::text::date) AND tbl_time.month::double precision = date_part('month'::text, 'now'::text::date)) AS minutesmonth,
+    a.search
+   FROM tbl_user a
   WHERE a.isremoved = false;
 
 -- CODELIST

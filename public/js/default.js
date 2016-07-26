@@ -24,11 +24,14 @@ marked.setOptions({
 	header: false
 });
 
-AJAXCACHE('GET /api/cdl/', null, 'common.cdl', '5 minutes');
+AJAXCACHE('GET /api/cdl/', null, 'common.cdl', '2 minutes');
 
 $(document).ready(function() {
 	jR.clientside('.jrouting');
 	FIND('loading', FN('() => this.hide(500)'));
+	$('.mainmenu-logo').on('click', function() {
+		jR.redirect('/');
+	});
 });
 
 function isError(arguments) {

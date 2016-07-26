@@ -1,6 +1,6 @@
 exports.install = function() {
 	F.route('/*', 'index', ['authorize']);
-	F.route('/', 'login', ['unauthorize']);
+	F.route('/*', 'login', ['unauthorize']);
 	F.route('/logoff', redirect_logoff, ['authorize']);
 
 	F.file('/photos/*.jpg', file_photo);
@@ -68,6 +68,7 @@ function file_download(req, res) {
 
 function redirect_logoff() {
 	var self = this;
-	self.user.logoff(self);
+	delete F.SESSION[self.user.id];
+	self.cookie(CONFIG('auth.cookie'), '', '-1 day');
 	self.redirect('/');
 }

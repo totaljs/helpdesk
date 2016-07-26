@@ -7,8 +7,12 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=10" />
 	<meta name="format-detection" content="telephone=no" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<meta name="robots" content="all,follow" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="#68B25B" />
+	<meta name="apple-mobile-web-app-title" content="@{config.name}" />
+	<link rel="apple-touch-icon" href="/icon.png" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,700&subset=latin,latin-ext" />
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.6.0/codemirror.min.css" />
@@ -27,7 +31,7 @@
 
 	<header>
 		<div class="mainmenu">
-			<div><b>@{config.name}</b> v@{config.version}</div>
+			<div class="mainmenu-logo"><b>@{config.name}</b> v@{config.version}</div>
 			<a href="javascript:mainmenu()" class="mainmenu-button"><span class="fa fa-navicon"></span></a>
 		</div>
 		@{if user.photo}<div class="photo"><a href="/" class="jrouting"><img src="/photos/@{user.photo}.jpg" class="img-responsive img-rounded" alt="@{user.name}" border="0" /></a></div>@{fi}
@@ -89,7 +93,7 @@
 		});
 
 		Tangular.register('month', function(value) {
-			var months = ['january', 'february', 'march', 'april', 'may', 'juny', 'july', 'august', 'september', 'october', 'november', 'december'];
+			var months = [@('january', 'february', 'march', 'april', 'may', 'juny', 'july', 'august', 'september', 'october', 'november', 'december')];
 			return months[value - 1];
 		});
 	</script>

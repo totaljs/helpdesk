@@ -43,7 +43,12 @@ function json_cdl() {
 	var sql = DB();
 
 	sql.select('labels', 'cdl_label');
-	sql.select('projects', 'cdl_project');
+
+	if (self.user.isadmin)
+		sql.select('projects', 'cdl_project');
+	else
+		sql.select('projects', 'tbl_user_project').where('iduser', self.user.id);
+
 	sql.select('languages', 'cdl_language');
 
 	sql.exec(function(err, response) {

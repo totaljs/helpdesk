@@ -9,6 +9,7 @@ NEWSCHEMA('User').make(function(schema) {
 	schema.define('notes', 'String(200)');
 	schema.define('minutes', Number);
 	schema.define('position', 'String(50)');
+	schema.define('projects', '[String(30)]');
 	schema.define('iscustomer', Boolean);
 	schema.define('ispriority', Boolean);
 	schema.define('isactivated', Boolean);
@@ -38,7 +39,7 @@ NEWSCHEMA('User').make(function(schema) {
 
 		var sql = DB(error);
 
-		sql.listing('data', 'tbl_user').make(function(builder) {
+		sql.listing('data', 'view_user').make(function(builder) {
 
 			switch (options.type) {
 				case '1':
@@ -53,9 +54,8 @@ NEWSCHEMA('User').make(function(schema) {
 			}
 
 			options.search && builder.like('search', options.search, '*');
-			builder.fields('id', 'name', 'photo', 'email', 'company', 'iscustomer', 'minutes', 'position', 'isactivated', 'isadmin', 'ispriority', 'datecreated', 'dateupdated', 'isconfirmed');
+			options.project && builder.sql('EXISTS(SELECT tbl_user_project.name FROM tbl_user_project WHERE tbl_user_project.iduser=tbl_user.id AND tbl_user_project.name=? LIMIT 1)', [options.project]);
 			builder.sort('datecreated', true);
-			builder.where('isremoved', false);
 			builder.skip(skip);
 			builder.take(take);
 		});
@@ -91,7 +91,16 @@ NEWSCHEMA('User').make(function(schema) {
 			builder.first();
 		});
 
-		sql.exec((err, response) => callback(response), 'item');
+		sql.select('projects', 'tbl_user_project').make(function(builder) {
+			builder.where('iduser', controller.id);
+		});
+
+		sql.exec(function(err, response) {
+			if (err)
+				return callback();
+			response.item.projects = response.projects.map(n => n.name);
+			callback(response.item);
+		});
 	});
 
 	schema.setSave(function(error, model, controller, callback) {
@@ -109,6 +118,7 @@ NEWSCHEMA('User').make(function(schema) {
 				model.id = UID();
 				model.token = U.GUID(30);
 				builder.set(model);
+				builder.rem('projects');
 				builder.rem('iswelcome');
 				return;
 			}
@@ -116,11 +126,39 @@ NEWSCHEMA('User').make(function(schema) {
 			builder.set(model);
 			builder.set('dateupdated', F.datetime);
 			builder.rem('id');
+			builder.rem('projects');
 			builder.rem('iswelcome');
 			builder.where('id', model.id);
 		});
 
-		sql.exec(() => callback(SUCCESS(true)));
+		if (model.id)
+			sql.remove('tbl_user_project').where('iduser', model.id);
+
+		sql.prepare(function(error, response, resume) {
+			for (var i = 0, length = model.projects.length; i < length; i++)
+				model.projects[i] && sql.insert('tbl_user_project').primary('iduser').set('company', model.company).set('iduser', model.id).set('name', model.projects[i]);
+			resume();
+		});
+
+		sql.exec(function(err, response) {
+			if (err)
+				return callback();
+
+			// Refresh user's session if exists
+			var session = F.SESSION[model.id];
+			if (session) {
+				session.name = model.name;
+				session.company = model.company;
+				session.minutes = model.minutes;
+				session.photo = model.photo;
+				session.ispriority = model.ispriority;
+				session.isadmin = model.isadmin;
+				session.iscustomer = model.iscustomer;
+				session.position = model.position;
+			}
+
+			callback(SUCCESS(true));
+		});
 	});
 
 	schema.setRemove(function(error, controller, callback) {
