@@ -29,8 +29,8 @@
 			<td>{{ if company }}<span class="fa fa-building"></span> {{ company }}{{ fi }}</td>
 			<td style="width:220px" class="hidden-xs fs11">{{ email }}</td>
 			<td style="width:220px" class="hidden-xs fs11 silver">{{ position }}</td>
-			<td style="width:80px" class="hidden-xs fs11 right b red active">{{ minutesmonth }}<i class="fa fa-clock-o ml5"></i></td>
-			<td style="width:80px" class="hidden-xs fs11 right b">{{ minutes }}<i class="fa fa-clock-o ml5"></i></td>
+			<td style="width:80px" class="hidden-xs fs11 right b red active">{{ minutesmonth | default(0) }}<i class="fa fa-clock-o ml5"></i></td>
+			<td style="width:80px" class="hidden-xs fs11 right b">{{ minutes | default(0) }}<i class="fa fa-clock-o ml5"></i></td>
 			<td style="width:100px" class="hidden-xs ui-right silver">{{ if datelogged }}<i class="fa fa-sign-in mr5"></i>{{ datelogged | format('@(yyyy-MM-dd)') }}{{ else }}...{{ fi }}</td>
 			<td style="width:80px" class="ui-right">
 				<button name="edit" title="@(Show)"><span class="fa fa-pencil"></span></button>
