@@ -1,5 +1,11 @@
 const HelpDesk = global.HelpDesk = {};
 
+/**
+ * Signs filename
+ * @param {Number} oid
+ * @param {String} extension
+ * @return {String}
+ */
 HelpDesk.filename = function(oid, extension) {
 
 	var name = oid.toString();
@@ -11,6 +17,14 @@ HelpDesk.filename = function(oid, extension) {
 	return name + 'x' + count + extension;
 };
 
+/**
+ * Sends email (notification)
+ * @param {Number} type Notification type.
+ * @param {User} user User session.
+ * @param {UID} idticket
+ * @param {UID} idcomment Optional.
+ * @return {HelpDesk}
+ */
 HelpDesk.notify = function(type, user, idticket, idcomment) {
 
 	// 0 == create
@@ -181,4 +195,5 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 
 	});
 
+	return HelpDesk;
 };

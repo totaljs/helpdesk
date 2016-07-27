@@ -1,5 +1,6 @@
 F.SESSION = {};
 
+// User authorization
 F.onAuthorize = function(req, res, flags, callback) {
 
 	var cookie = req.cookie(CONFIG('auth.cookie'));
@@ -42,6 +43,7 @@ F.onAuthorize = function(req, res, flags, callback) {
 	}, 'item');
 };
 
+// Clears old session
 F.on('service', function(interval) {
 
 	if (interval % 10 !== 0)

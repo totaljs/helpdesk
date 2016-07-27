@@ -3,12 +3,23 @@ exports.install = function() {
 	F.route('/*', 'login', ['unauthorize']);
 	F.route('/logoff', redirect_logoff, ['authorize']);
 
+	// Files
+	F.file('/download/*',   file_download);
 	F.file('/photos/*.jpg', file_photo);
-	F.file('/download/*', file_download);
 
+	// Templates
 	F.localize('/templates/*.html', ['compress']);
 };
 
+// Signs out the user
+function redirect_logoff() {
+	var self = this;
+	delete F.SESSION[self.user.id];
+	self.cookie(CONFIG('auth.cookie'), '', '-1 day');
+	self.redirect('/');
+}
+
+// Reads photo from DB
 function file_photo(req, res) {
 	var id = req.split[1].substring(0, req.split[1].length - 4).split('x').first();
 	var token = HelpDesk.filename(id, '.jpg');
@@ -42,6 +53,7 @@ function file_photo(req, res) {
 	});
 }
 
+// Performs file download
 function file_download(req, res) {
 	var id = req.split[1].substring(0, req.split[1].length - 4).split('x').first();
 	var token = HelpDesk.filename(id, '.' + req.extension);
@@ -64,11 +76,4 @@ function file_download(req, res) {
 			stream.pipe(writer);
 		});
 	});
-}
-
-function redirect_logoff() {
-	var self = this;
-	delete F.SESSION[self.user.id];
-	self.cookie(CONFIG('auth.cookie'), '', '-1 day');
-	self.redirect('/');
 }
