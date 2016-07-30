@@ -1,0 +1,20 @@
+{
+  "name": "HelpDesk",
+  "description": "HelpDesk application build on Total.js.",
+  "version": "0.0.1",
+  "main": "release.js",
+  "dependencies": {
+    "total.js": "latest",
+    "pg": "latest",
+    "sqlagent": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "helpdesk",
+    "total.js"
+  ],
+  "author":"Totaljs",
+  "license": "MIT"
+}
