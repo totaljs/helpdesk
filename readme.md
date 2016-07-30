@@ -6,9 +6,7 @@
 
 __License__: [MIT](license.txt). __HelpDesk__ needs latest Total.js from NPM `+v2.0.1`.
 
-- `npm install total.js`
-- `npm install pg`
-- `npm install sqlagent`
+- `npm install`
 - change database connection string in `config`
 - run script `postgresql.sql` in your database
 - run `node debug.js`
