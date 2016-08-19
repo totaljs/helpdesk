@@ -1,6 +1,6 @@
 name                      : HelpDesk
 version                   : 1.0.0
-author                    : Total.js Labs
+author                    : Totaljs.com Ltd
 
 url                       : https://helpdesk.totaljs.com
 database                  : YOUR-CONNECTION-STRING-POSTGRESQL
