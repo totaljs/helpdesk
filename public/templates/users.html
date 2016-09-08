@@ -25,7 +25,7 @@
 	<div data-component="grid" data-component-path="users.grid" data-pagination-path="users.filter.page" data-component-id="users.grid" data-max="auto" data-page="@(Page: #)" data-pages="@(# pages,# page,# pages,# pages)" data-items="@(# items,# item,# items,# items)" data-empty="@(Database does not contain any data.)">
 		<script type="text/html">
 		<tr{{ if !isconfirmed }} class="active"{{ fi }}>
-			<td style="width:200px" class="b">{{ if ispriority }}<span class="badge badge-red mr5">priority</span>{{ fi }}{{ if !iscustomer }}<span class="badge badge-green mr5">support</span>{{ fi }}{{ name }}</td>
+			<td style="width:200px" class="b">{{ if ispriority }}<span class="badge badge-red mr5">priority</span>{{ fi }}{{ if !iscustomer }}<span class="badge badge-green mr5">@(support)</span>{{ fi }}{{ name }}</td>
 			<td>{{ if company }}<span class="fa fa-building"></span> {{ company }}{{ fi }}</td>
 			<td style="width:220px" class="hidden-xs fs11">{{ email }}</td>
 			<td style="width:220px" class="hidden-xs fs11 silver">{{ position }}</td>
