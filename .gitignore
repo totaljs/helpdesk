@@ -1,6 +1,2 @@
-
 sftp-config.json
-
-debug.pid
-
-logs/debug.log
+public/components/*
