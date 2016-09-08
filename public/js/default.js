@@ -92,14 +92,6 @@ Tangular.register('default', function(value, def) {
 	return value;
 });
 
-function getSelectionStartNode(context){
-	if (!context.getSelection)
-		return;
-	var node = context.getSelection().anchorNode;
-	var startNode = (node.nodeName == "#text" ? node.parentNode : node);
-	return startNode;
-}
-
 function marked_video(selector) {
 	selector.each(function() {
 		var el = $(this);
