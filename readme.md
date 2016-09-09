@@ -1,12 +1,16 @@
 [![MIT License][license-image]][license-url]
 
-[![Support](https://www.totaljs.com/img/button-support.png?v=1)](https://www.totaljs.com/support/) [![Donate](https://www.totaljs.com/img/button-donate.png)](https://www.totaljs.com/#make-a-donation)
+[![Support](https://www.totaljs.com/img/button-support.png?v=2)](https://www.totaljs.com/support/)
 
 # Installation
 
 __License__: [MIT](license.txt). __HelpDesk__ needs latest Total.js from NPM `+v2.0.1`.
 
-- `npm install`
+---
+
+- install [Node.js platfrom](https://nodejs.org/)
+- install [GraphicsMagick](http://www.graphicsmagick.org/) because of pictures
+- `$ npm install`
 - change database connection string in `config`
 - run script `postgresql.sql` in your database
 - run `node debug.js`
