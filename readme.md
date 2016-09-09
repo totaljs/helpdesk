@@ -6,11 +6,9 @@
 
 __License__: [MIT](license.txt). __HelpDesk__ needs latest Total.js from NPM `+v2.0.1`.
 
----
-
-- install [Node.js platfrom](https://nodejs.org/)
-- install [GraphicsMagick](http://www.graphicsmagick.org/) because of pictures
-- `$ npm install`
+- install [Node.js platfrom](https://nodejs.org/) v4+
+- install [GraphicsMagick](http://www.graphicsmagick.org/) due to pictures
+- `$ cd helpdesk` and `$ npm install`
 - change database connection string in `config`
 - run script `postgresql.sql` in your database
 - run `node debug.js`
