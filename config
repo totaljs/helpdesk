@@ -3,7 +3,9 @@ version                   : 1.0.0
 author                    : Totaljs.com Ltd
 
 url                       : https://helpdesk.totaljs.com
-database                  : YOUR-CONNECTION-STRING-POSTGRESQL
+
+// IMPORTANT: update the connection string below
+database                  : postgre://user:password@127.0.0.1/database
 
 // Custom SMTP settings
 
