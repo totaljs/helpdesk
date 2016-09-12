@@ -188,7 +188,7 @@
 						if (index)
 							return;
 						SETTER('loading', 'show');
-						AJAX('DELETE /api/users', { id: row.id }, function() {
+						AJAX('DELETE /api/users/{0}/'.format(row.id), function() {
 							EXEC('users_refresh');
 							SETTER('loading', 'hide');
 						});

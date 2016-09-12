@@ -171,7 +171,7 @@ NEWSCHEMA('User').make(function(schema) {
 		sql.update('tbl_user').make(function(builder) {
 			builder.set('isremoved', true);
 			builder.set('dateupdated', F.datetime);
-			builder.where('id', model.id);
+			builder.where('id', controller.id);
 		});
 
 		sql.exec(() => callback(SUCCESS(true)));
