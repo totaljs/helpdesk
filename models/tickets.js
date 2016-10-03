@@ -28,6 +28,7 @@ NEWSCHEMA('Ticket').make(function(schema) {
 
 			options.search && builder.like('search', options.search, '*');
 			options.project && builder.where('project', options.project);
+			options.language && builder.where('language', options.language);
 
 			if (options.labels instanceof Array) {
 				builder.scope(function() {
