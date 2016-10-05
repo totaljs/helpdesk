@@ -27,8 +27,8 @@
 		<tr{{ if !isconfirmed }} class="active"{{ fi }}>
 			<td style="width:200px" class="b">{{ if ispriority }}<span class="badge badge-red mr5">priority</span>{{ fi }}{{ if !iscustomer }}<span class="badge badge-green mr5">@(support)</span>{{ fi }}{{ name }}</td>
 			<td>{{ if company }}<span class="fa fa-building"></span> {{ company }}{{ fi }}</td>
-			<td style="width:220px" class="hidden-xs fs11">{{ email }}</td>
-			<td style="width:220px" class="hidden-xs fs11 silver">{{ position }}</td>
+			<td style="width:220px" class="hidden-xs hidden-sm fs11">{{ email }}</td>
+			<td style="width:220px" class="hidden-xs hidden-sm hidden-md hidden-sm fs11 silver">{{ position }}</td>
 			<td style="width:80px" class="hidden-xs fs11 right b red active">{{ minutesmonth | default(0) }}<i class="fa fa-clock-o ml5"></i></td>
 			<td style="width:80px" class="hidden-xs fs11 right b">{{ minutes | default(0) }}<i class="fa fa-clock-o ml5"></i></td>
 			<td style="width:100px" class="hidden-xs ui-right silver">{{ if datelogged }}<i class="fa fa-sign-in mr5"></i>{{ datelogged | format('@(yyyy-MM-dd)') }}{{ else }}...{{ fi }}</td>
