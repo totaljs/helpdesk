@@ -26,10 +26,8 @@ NEWSCHEMA('Password').make(function(schema) {
 			if (err)
 				return callback();
 
-			if (!response.isactivated)
-				error.push('error-user-activated');
-			if (!response.isconfirmed)
-				error.push('error-user-confirmed');
+			!response.isactivated error.push('error-user-activated');
+			!response.isconfirmed error.push('error-user-confirmed');
 
 			if (response.isconfirmed && response.isactivated) {
 				response.token = token;

@@ -31,10 +31,7 @@ NEWSCHEMA('Account').make(function(schema) {
 			builder.set(model);
 			builder.rem('password');
 			builder.rem('ispassword');
-
-			if (model.ispassword)
-				builder.set('password', model.password.sha1());
-
+			model.ispassword && builder.set('password', model.password.sha1());
 			builder.set('dateupdated', F.datetime);
 			builder.inc('countupdates');
 

@@ -20,12 +20,8 @@ NEWSCHEMA('Login').make(function(schema) {
 		sql.exec(function(err, response) {
 			if (err)
 				return callback();
-
-			if (!response.isactivated)
-				error.push('error-user-activated');
-			if (!response.isconfirmed)
-				error.push('error-user-confirmed');
-
+			!response.isactivated && error.push('error-user-activated');
+			!response.isconfirmed && error.push('error-user-confirmed');
 			response.isconfirmed && response.isactivated && controller.cookie(CONFIG('auth.cookie'), F.encrypt({ id: response.id, date: F.datetime.getTime(), ip: controller.ip }, CONFIG('auth.secret')), '1 month');
 			callback(SUCCESS(true));
 		}, 'item');
