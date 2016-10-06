@@ -318,6 +318,7 @@
 			SET('ticketsdetail.form.response', response);
 			if (response instanceof Array)
 				return;
+			ticketsdetail.form.id = undefined;
 			ticketdetail_refresh();
 			DEFAULT('ticketsdetail.form.*');
 		});
@@ -393,7 +394,7 @@
 	}
 
 	function ticketsdetail_cancel() {
-		delete ticketsdetail.form.id;
+		ticketsdetail.form.id = undefined;
 		DEFAULT('ticketsdetail.form.*');
 	}
 
