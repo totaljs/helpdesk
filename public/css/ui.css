@@ -116,7 +116,8 @@ button { outline: 0; }
 .ui-codemirror-label .fa { width: 14px; }
 .ui-codemirror-label-required:before { color: red; content: '***'; margin-right: 5px; }
 .ui-codemirror-invalid .CodeMirror { background-color: #FFF3F3 !important; border-color: #E1A1A1 !important; }
-.CodeMirror { border: 2px solid #E0E0E0; border-radius: 3px; padding: 5px; height: auto; min-height: 150px; }
+.CodeMirror { border: 2px solid #E0E0E0; border-radius: 3px; padding: 5px; height: auto; }
+.CodeMirror-scroll { min-height: 150px; }
 
 .filter-minimal { border-bottom: 0 !important; padding-bottom: 0 !important; margin: 10px 0 !important; }
 .filter { border-bottom: 4px solid #F0F0F0; padding: 0 0 10px; margin: 20px 0; font-size: 11px; }
