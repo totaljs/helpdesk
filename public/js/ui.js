@@ -1441,7 +1441,7 @@ COMPONENT('checkboxlist', function() {
 			if (!builder.length)
 				return;
 			builder.push('<div class="clearfix"></div>');
-			self.attr('data-button') && builder.push('<div class="col-md-12"><div class="ui-checkboxlist-selectall"><a href="javascript:void(0)"><i class="fa fa-object-group mr5"></i>{0}</a></div></div>'.format(self.attr('data-button')));
+			self.attr('data-button') && builder.push('<div class="col-md-12"><div class="ui-checkboxlist-selectall"><a href="javascript:void(0)"><i class="fa fa-toggle-on mr5"></i>{0}</a></div></div>'.format(self.attr('data-button')));
 			self.html(builder.join(''));
 			return self;
 		};
