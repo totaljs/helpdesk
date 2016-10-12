@@ -192,7 +192,8 @@ CREATE OR REPLACE VIEW public.view_ticket_comment AS
     b.isnotification,
     a.issolution AS issolved,
     a.operation,
-    b."position"
+    b."position",
+    b.iscustomer
    FROM tbl_ticket_comment a
      JOIN tbl_user b ON a.iduser::text = b.id::text
   WHERE a.isremoved = false;
