@@ -2,9 +2,10 @@
 
 [![Support](https://www.totaljs.com/img/button-support.png?v=2)](https://www.totaljs.com/support/)
 
-# Installation
+- __License__: [MIT](license.txt)
+- [__HelpDesk with professional support__](https://helpdesk.totaljs.com)
 
-__License__: [MIT](license.txt). __HelpDesk__ needs latest Total.js from NPM `+v2.0.1`.
+# Installation
 
 - install [Node.js platfrom](https://nodejs.org/) v4+
 - install [GraphicsMagick](http://www.graphicsmagick.org/) due to pictures
