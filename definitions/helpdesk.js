@@ -86,112 +86,65 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 
 		response.user = user;
 
-		var email = [];
 		var messages = [];
+		var subject;
+		var viewname;
 
-		// Association
-		if (type === 5) {
+		switch (type) {
 
-			// Add owner
-			if (response.user)
-				response.support.push(response.user);
+			// create ticket
+			case 0: 
+				subject = 'New ticket: {0}'.format(response.ticket.name.max(50));
+				viewname = 'mails/notify-create';
+				// Add owner
+				if (response.owner)
+					response.users.push(response.owner);
+				break;
 
-			response.support.forEach(function(item) {
+			// close ticket
+			case 1: 
+				subject = 'Ticket has been closed: {0}'.format(response.ticket.name.max(50));
+				viewname = 'mails/notify-close';
+				// Add owner
+				if (response.owner)
+					response.users.push(response.owner);
+				break;
 
-				if (item.iduser === user.id)
-					return;
+			// re-open ticket
+			case 2: 
+				subject = 'Ticket has been re-opened: {0}'.format(response.ticket.name.max(50));
+				viewname = 'mails/notify-reopen';
+				// Add owner
+				if (response.owner)
+					response.users.push(response.owner);
+				break;
 
-				var message = Mail.create('Ticket has been associated: {0}'.format(response.ticket.name.max(50)), F.view('mails/notify-assign', response));
-				message.from(CONFIG('mail.address.from'));
-				message.to(item.email);
-				messages.push(message);
-			});
-
-			messages.length && Mail.send2(messages);
-			return;
-		}
-
-		// Closed
-		if (type === 1) {
-
-			// Add owner
-			if (response.owner)
-				response.users.push(response.owner);
-
-			response.users.forEach(function(item) {
-
-				if (item.iduser === user.id)
-					return;
-
-				var message = Mail.create('Ticket has been closed: {0}'.format(response.ticket.name.max(50)), F.view('mails/notify-close', response));
-				message.from(CONFIG('mail.address.from'));
-				message.to(item.email);
-				messages.push(message);
-			});
-
-			messages.length && Mail.send2(messages);
-			return;
-		}
-
-		// Re-opened
-		if (type === 2) {
-
-			// Add owner
-			if (response.owner)
-				response.users.push(response.owner);
-
-			response.users.forEach(function(item) {
-
-				if (item.iduser === user.id)
-					return;
-
-				var message = Mail.create('Ticket has been re-opened: {0}'.format(response.ticket.name.max(50)), F.view('mails/notify-reopen', response));
-				message.from(CONFIG('mail.address.from'));
-				message.to(item.email);
-				messages.push(message);
-			});
-
-			messages.length && Mail.send2(messages);
-			return;
-		}
-
-		if (type === 0) {
-
-			// new ticket
-			response.support.forEach(function(item) {
-
-				if (item.iduser === user.id)
-					return;
-
-				var message = Mail.create('New ticket: {0}'.format(response.ticket.name.max(50)), F.view('mails/notify-create', response));
-				message.from(CONFIG('mail.address.from'));
-				message.to(item.email);
-				messages.push(message);
-			});
-
-			messages.length && Mail.send2(messages);
-			return;
-		}
-
-		if (type === 9) {
-
-			response.idcomment = idcomment;
+			// associate ticket
+			case 5: 
+				subject = 'Ticket has been associated: {0}'.format(response.ticket.name.max(50));
+				viewname = 'mails/notify-assign';
+				break;
 
 			// new comment
-			response.users.forEach(function(item) {
-
-				if (item.iduser === user.id)
-					return;
-
-				var message = Mail.create('New comment: {0}'.format(response.ticket.name.max(50)), F.view('mails/notify-comment', response));
-				message.from(CONFIG('mail.address.from'));
-				message.to(item.email);
-				messages.push(message);
-			});
-
-			messages.length && Mail.send2(messages);
-			return;
+			case 9: 
+				response.idcomment = idcomment;
+				subject = 'New comment: {0}'.format(response.ticket.name.max(50));
+				viewname = 'mails/notify-comment';
+				break;
 		}
+
+		response.users.forEach(function(item) {
+
+			if (item.iduser === user.id)
+				return;
+
+			var message = Mail.create(subject, F.view(viewname, response));
+			message.from(CONFIG('mail.address.from'));
+			message.to(item.email);
+			messages.push(message);
+		});
+
+		messages.length && Mail.send2(messages);
 
 	});
 
