@@ -44,15 +44,13 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 	sql.validate('ticket', 'error-ticket-404');
 
 	// Select all users according to comments
-	if (type !== 5) {
-		sql.query('users', 'SELECT a.iduser, b.email FROM tbl_ticket_comment a INNER JOIN tbl_user b ON b.id=a.iduser').make(function(builder) {
-			builder.where('b.isnotification', true);
-			builder.where('b.isremoved', false);
-			builder.where('b.isactivated', true);
-			builder.where('a.idticket', idticket);
-			builder.group('iduser', 'email');
-		});
-	}
+	type !== 5 && sql.query('users', 'SELECT a.iduser, b.email FROM tbl_ticket_comment a INNER JOIN tbl_user b ON b.id=a.iduser').make(function(builder) {
+		builder.where('b.isnotification', true);
+		builder.where('b.isremoved', false);
+		builder.where('b.isactivated', true);
+		builder.where('a.idticket', idticket);
+		builder.group('iduser', 'email');
+	});
 
 	// Checks ticket solvers
 	sql.prepare(function(error, response, resume) {
@@ -84,6 +82,9 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 
 	sql.exec(function(err, response) {
 
+		if (!response.users)
+			response.users = [];
+
 		response.user = user;
 
 		var messages = [];
@@ -93,40 +94,37 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 		switch (type) {
 
 			// create ticket
-			case 0: 
+			case 0:
 				subject = 'New ticket: {0}'.format(response.ticket.name.max(50));
 				viewname = 'mails/notify-create';
 				// Add owner
-				if (response.owner)
-					response.users.push(response.owner);
+				response.owner && response.users.push(response.owner);
 				break;
 
 			// close ticket
-			case 1: 
+			case 1:
 				subject = 'Ticket has been closed: {0}'.format(response.ticket.name.max(50));
 				viewname = 'mails/notify-close';
 				// Add owner
-				if (response.owner)
-					response.users.push(response.owner);
+				response.owner && response.users.push(response.owner);
 				break;
 
 			// re-open ticket
-			case 2: 
+			case 2:
 				subject = 'Ticket has been re-opened: {0}'.format(response.ticket.name.max(50));
 				viewname = 'mails/notify-reopen';
 				// Add owner
-				if (response.owner)
-					response.users.push(response.owner);
+				response.owner && response.users.push(response.owner);
 				break;
 
 			// associate ticket
-			case 5: 
+			case 5:
 				subject = 'Ticket has been associated: {0}'.format(response.ticket.name.max(50));
 				viewname = 'mails/notify-assign';
 				break;
 
 			// new comment
-			case 9: 
+			case 9:
 				response.idcomment = idcomment;
 				subject = 'New comment: {0}'.format(response.ticket.name.max(50));
 				viewname = 'mails/notify-comment';
@@ -145,7 +143,6 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 		});
 
 		messages.length && Mail.send2(messages);
-
 	});
 
 	return HelpDesk;
