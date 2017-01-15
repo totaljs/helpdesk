@@ -58,7 +58,7 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 		if (type !== 5 && response.ticket.idsolver)
 			return resume();
 
-		sql.query('support', 'SELECT id as iduser, email, name FROM tbl_user').make(function(builder) {
+		sql.query('users', 'SELECT id as iduser, email, name FROM tbl_user').make(function(builder) {
 			builder.where('iscustomer', false);
 			builder.where('isnotification', true);
 			builder.where('isremoved', false);
