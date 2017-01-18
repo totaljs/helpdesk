@@ -9,12 +9,12 @@
 					<div class="padding npb">
 						<div class="center">
 							<br />
-							<div data-component="photoupload" data-component-path="account.photo" data-url="/api/upload/" data-upload-error="@(The file is too large.)"></div>
+							<div data-jc="photoupload" data-jc-path="account.photo" data-url="/api/upload/" data-upload-error="@(The file is too large.)"></div>
 							<div class="help">@(Click on the photo to change it.)</div>
 						</div>
 					</div>
 					<hr />
-					<div class="padding npb npt" data-component="tagger" data-component-path="tickets.user">
+					<div class="padding npb npt" data-jc="tagger" data-jc-path="tickets.user">
 						<div class="row">
 							<div class="col-md-6">
 								<div class="keyvalue">
@@ -33,43 +33,43 @@
 					<div class="padding npb">
 						<div class="row">
 							<div class="col-md-6 m">
-								<div data-component="textbox" data-component-path="account.name" data-maxlength="50" data-required="true">@(Account name)</div>
+								<div data-jc="textbox" data-jc-path="account.name" data-maxlength="50" data-required="true">@(Account name)</div>
 							</div>
 							<div class="col-md-6 m">
-								<div data-component="textbox" data-component-path="account.email" data-component-type="email" data-maxlength="200" data-required="true">@(Email address)</div>
+								<div data-jc="textbox" data-jc-path="account.email" data-jc-type="email" data-maxlength="200" data-required="true">@(Email address)</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 m">
-								<div data-component="textbox" data-component-path="account.company" data-maxlength="50" class="m">@(Company)</div>
+								<div data-jc="textbox" data-jc-path="account.company" data-maxlength="50" class="m">@(Company)</div>
 							</div>
 							<div class="col-md-6 m">
-								<div data-component="textbox" data-component-path="account.position" data-maxlength="50" class="m" data-placeholder="@(e.g. Web Developer)">@(Position)</div>
+								<div data-jc="textbox" data-jc-path="account.position" data-maxlength="50" class="m" data-placeholder="@(e.g. Web Developer)">@(Position)</div>
 							</div>
 						</div>
 						<hr class="nmt" />
-						<div data-component="checkbox" data-component-path="account.isnotification">@(Enable email notifications)</div>
-						<div data-component="checkbox" data-component-path="account.ispassword" class="m">@(I want to change my password)</div>
+						<div data-jc="checkbox" data-jc-path="account.isnotification">@(Enable email notifications)</div>
+						<div data-jc="checkbox" data-jc-path="account.ispassword" class="m">@(I want to change my password)</div>
 					</div>
-					<div data-component="visible" data-component-path="account.ispassword" class="bg-smoke padding m">
+					<div data-jc="visible" data-jc-path="account.ispassword" class="bg-smoke padding m">
 						<div class="help"><i class="fa fa-warning"></i>@(Be carefully with changing your password and don't forgot to sign in with a new password.)</div>
 						<br />
-						<div data-component="disable" data-component-path="account.ispassword" data-if="!value">
+						<div data-jc="disable" data-jc-path="account.ispassword" data-if="!value">
 							<div class="row">
 								<div class="col-md-6 m">
-									<div data-component="textbox" data-component-path="account.password" data-required="true" data-component-type="password" data-maxlength="30">@(Password)</div>
+									<div data-jc="textbox" data-jc-path="account.password" data-required="true" data-jc-type="password" data-maxlength="30">@(Password)</div>
 								</div>
 								<div class="col-md-6 m">
-									<div data-component="textbox" data-component-path="account.passwordreply" data-required="true" data-component-type="password" data-maxlength="30">@(Password again)</div>
+									<div data-jc="textbox" data-jc-path="account.passwordreply" data-required="true" data-jc-type="password" data-maxlength="30">@(Password again)</div>
 								</div>
 							</div>
-							<div data-component="password-progress" data-component-path="account.password" class="fs11">@(Password strength:)</div>
+							<div data-jc="password-progress" data-jc-path="account.password" class="fs11">@(Password strength:)</div>
 						</div>
 					</div>
 					<div class="padding npt">
 						<div class="row">
-							<div class="col-md-12" data-component="validation" data-component-path="account" data-if="!value.ispassword || (value.password && value.password === value.passwordreply)">
-								<button class="button upper" disabled="disabled" data-component="click" data-component-path="account_save">@(Save)</button>
+							<div class="col-md-12" data-jc="validation" data-jc-path="account" data-if="!value.ispassword || (value.password && value.password === value.passwordreply)">
+								<button class="button upper" disabled="disabled" data-jc="click" data-jc-path="account_save">@(Save)</button>
 							</div>
 						</div>
 					</div>

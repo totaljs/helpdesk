@@ -4,20 +4,20 @@
 
 		<div class="col-lg-3 col-md-3">
 
-			<nav class="submenu mt5 m" data-component="tagger" data-component-path="ticketsdetail.detail">
+			<nav class="submenu mt5 m" data-jc="tagger" data-jc-path="ticketsdetail.detail">
 				<a href="/tickets/" class="jrouting b"><i class="fa fa-arrow-left"></i>@(Back)</a>
-				<a href="javascript:void(0)" class="hidden role-admin" data-component="click" data-component-path="ticketsdetail_minutes"><i class="fa fa-clock-o"></i>@(Add minutes)</a>
-				<a href="javascript:void(0)" class="hidden role-admin" data-component="click" data-component-path="ticketsdetail_labels"><i class="fa fa-bookmark"></i>@(Labels)</a>
-				<a href="javascript:void(0)" class="hidden role-solver" data-component="click" data-component-path="ticketsdetail_assign"><i class="fa fa-crosshairs"></i>@(Assign me)</a>
-				<a href="javascript:void(0)" class="hidden" data-name="issolved" data-visible="n => !n" data-component="click" data-component-path="ticketsdetail_close"><i class="fa fa-check-circle"></i>@(Close ticket)</a>
-				<a href="javascript:void(0)" class="hidden" data-name="issolved" data-visible="n => n" data-component="click" data-component-path="ticketsdetail_open"><i class="fa fa-recycle"></i>@(Re-open ticket)</a>
+				<a href="javascript:void(0)" class="hidden role-admin" data-jc="click" data-jc-path="ticketsdetail_minutes"><i class="fa fa-clock-o"></i>@(Add minutes)</a>
+				<a href="javascript:void(0)" class="hidden role-admin" data-jc="click" data-jc-path="ticketsdetail_labels"><i class="fa fa-bookmark"></i>@(Labels)</a>
+				<a href="javascript:void(0)" class="hidden role-solver" data-jc="click" data-jc-path="ticketsdetail_assign"><i class="fa fa-crosshairs"></i>@(Assign me)</a>
+				<a href="javascript:void(0)" class="hidden" data-name="issolved" data-visible="n => !n" data-jc="click" data-jc-path="ticketsdetail_close"><i class="fa fa-check-circle"></i>@(Close ticket)</a>
+				<a href="javascript:void(0)" class="hidden" data-name="issolved" data-visible="n => n" data-jc="click" data-jc-path="ticketsdetail_open"><i class="fa fa-recycle"></i>@(Re-open ticket)</a>
 				<a href="#comment" class="jrouting"><i class="fa fa-comment"></i>@(New comment)</a>
-				<a href="javascript:void(0)" class="jrouting" data-component="click" data-component-path="ticketsdetail_remove"><i class="fa fa-times-circle"></i>@(Remove ticket)</a>
+				<a href="javascript:void(0)" class="jrouting" data-jc="click" data-jc-path="ticketsdetail_remove"><i class="fa fa-times-circle"></i>@(Remove ticket)</a>
 			</nav>
 
 			<section>
 				<label><i class="fa fa-credit-card"></i>@(Time spent)</label>
-				<div class="padding" data-component="tagger" data-component-path="ticketsdetail.detail">
+				<div class="padding" data-jc="tagger" data-jc-path="ticketsdetail.detail">
 					<div class="keyvalue">
 						<div class="key"><i class="fa fa-clock-o"></i>@(This ticket)</div>
 						<div class="value" data-name="minutes" data-format="n => Tangular.helpers.pluralize(n, @('# minutes', '# minute', '# minutes', '# minutes'))">...</div>
@@ -36,7 +36,7 @@
 
 		<div class="col-lg-9 col-md-9 highlight-container">
 
-			<div data-component="tagger" data-component-path="ticketsdetail.detail">
+			<div data-jc="tagger" data-jc-path="ticketsdetail.detail">
 				<h1><i data-name="idsolver" data-visible="n => !n" class="fa fa-refresh mr10 fa-spin hidden"></i><span data-name="name">...</span><span class="badge badge-green hidden b ml10" data-name="issolved" data-visible="n => n">@(COMPLETED)</span></h1>
 				<div>
 					<span data-name="company" class="b black" data-after=" - "></span><span data-name="user">...</span><span data-name="position" data-before=" - " class="silver"></span>
@@ -49,13 +49,13 @@
 				<hr />
 			</div>
 
-			<div data-component="visible" data-component-path="ticketsdetail.comments" data-if="!value || !value.length" class="hidden">
+			<div data-jc="visible" data-jc-path="ticketsdetail.comments" data-if="!value || !value.length" class="hidden">
 				<br />
 				<div class="silver"><i class="fa fa-database mr5"></i>@(This ticket doesn't contain any comments.)</div>
 				<br />
 			</div>
 
-			<div data-component="repeater" data-component-path="ticketsdetail.comments">
+			<div data-jc="repeater" data-jc-path="ticketsdetail.comments">
 				<script type="text/html">
 					{{ if !operation }}
 					<div class="tickets-comment{{ if !iscustomer }} tickets-comments-admin{{ fi }}{{ if issolved }} tickets-comments-solution{{ fi }}">
@@ -111,15 +111,15 @@
 
 			<div id="comment">
 				<br />
-				<div data-component="codemirror" data-component-id="ticketsdetail-body" data-type="markdown" data-component-path="ticketsdetail.form.body" data-height="auto" data-required="true" data-component-value="''">@(Body)</div>
+				<div data-jc="codemirror" data-jc-id="ticketsdetail-body" data-type="markdown" data-jc-path="ticketsdetail.form.body" data-height="auto" data-required="true" data-jc-value="''">@(Body)</div>
 				<div class="help">@(Editor supports <i class="fa fa-code"></i>Markdown syntax and drag &amp; drop <i class="fa fa-file-o"></i>files.)</div>
 				<br />
 				<div class="row">
-					<div class="col-md-4 m" data-component="validation" data-component-path="ticketsdetail.form" data-selector=".b">
-						<button class="button b" data-component="click" data-component-path="ticketsdetail_submit"><i class="fa fa-send"></i>@(SUBMIT)</button>
+					<div class="col-md-4 m" data-jc="validation" data-jc-path="ticketsdetail.form" data-selector=".b">
+						<button class="button b" data-jc="click" data-jc-path="ticketsdetail_submit"><i class="fa fa-send"></i>@(SUBMIT)</button>
 					</div>
-					<div class="col-md-2 hidden" data-component="visible" data-component-path="ticketsdetail.form.body" data-if="value && value.length">
-						<button class="button" data-component="click" data-component-path="ticketsdetail_cancel">@(Cancel)</button>
+					<div class="col-md-2 hidden" data-jc="visible" data-jc-path="ticketsdetail.form.body" data-if="value && value.length">
+						<button class="button" data-jc="click" data-jc-path="ticketsdetail_cancel">@(Cancel)</button>
 					</div>
 				</div>
 			</div>
@@ -128,8 +128,8 @@
 	</div>
 </div>
 
-<div data-component="form" data-title="@(Add spent minutes)" data-component-path="common.form" data-if="value === 'minutes'" data-width="500px" data-component-id="minutes.form">
-	<div class="padding fade" data-component="tagger" data-component-path="ticketsdetail.detail">
+<div data-jc="form" data-title="@(Add spent minutes)" data-jc-path="common.form" data-if="value === 'minutes'" data-width="500px" data-jc-id="minutes.form">
+	<div class="padding fade" data-jc="tagger" data-jc-path="ticketsdetail.detail">
 		<div class="row">
 			<div class="col-md-4">
 				<div class="keyvalue">
@@ -156,28 +156,28 @@
 		<br />
 		<div class="row">
 			<div class="col-md-5 m">
-				<div data-component="textbox" data-component-path="ticketsdetail.minutes.minutes" data-required="true" data-maxlength="4" data-align="center" data-increment="true" data-component-value="0">@(Spent minutes)</div>
+				<div data-jc="textbox" data-jc-path="ticketsdetail.minutes.minutes" data-required="true" data-maxlength="4" data-align="center" data-increment="true" data-jc-value="0">@(Spent minutes)</div>
 			</div>
 			<div class="col-md-7">
 			</div>
 		</div>
 	</div>
-	<div data-component="error" data-component-path="ticketsdetail.minutes.response"></div>
+	<div data-jc="error" data-jc-path="ticketsdetail.minutes.response"></div>
 	<div class="ui-form-buttons">
-		<div data-component="validation" data-component-path="ticketsdetail.minutes" class="inline">
+		<div data-jc="validation" data-jc-path="ticketsdetail.minutes" class="inline">
 			<button name="submit">@(SUBMIT)</button>
 		</div>
 		<button name="cancel">@(Cancel)</button>
 	</div>
 </div>
 
-<div data-component="form" data-title="@(Set labels)" data-component-path="common.form" data-if="value === 'labels'" data-width="400px" data-component-id="labels.form">
+<div data-jc="form" data-title="@(Set labels)" data-jc-path="common.form" data-if="value === 'labels'" data-width="400px" data-jc-id="labels.form">
 	<div class="padding npt">
-		<div data-component="checkboxlist" data-component-path="ticketsdetail.labels.labels" data-source="common.cdl.labels" data-class="col-md-12 tickets-form-label" class="row mt10">Labels</div>
+		<div data-jc="checkboxlist" data-jc-path="ticketsdetail.labels.labels" data-source="common.cdl.labels" data-class="col-md-12 tickets-form-label" class="row mt10">Labels</div>
 	</div>
-	<div data-component="error" data-component-path="ticketsdetail.labels.response"></div>
+	<div data-jc="error" data-jc-path="ticketsdetail.labels.response"></div>
 	<div class="ui-form-buttons">
-		<div data-component="validation" data-component-path="ticketsdetail.labels" class="inline">
+		<div data-jc="validation" data-jc-path="ticketsdetail.labels" class="inline">
 			<button name="submit">@(SUBMIT)</button>
 		</div>
 		<button name="cancel">@(Cancel)</button>

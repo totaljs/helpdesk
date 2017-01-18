@@ -22,12 +22,12 @@
 		var user=JSON.parse('@{json(user)}');
 	</script>
 </head>
-<body>
+<body data-jc="exec">
 
 	<div id="success"><span class="fa fa-check-circle"></span></div>
-	<div data-component="message" data-button="@(Close)"></div>
-	<div data-component="confirm"></div>
-	<div data-component="loading" class="ui-loading"></div>
+	<div data-jc="message" data-button="@(Close)"></div>
+	<div data-jc="confirm"></div>
+	<div data-jc="loading" class="ui-loading"></div>
 
 	<header>
 		<div class="mainmenu">
@@ -47,13 +47,13 @@
 	</header>
 
 	<div id="body">
-		<div data-component="page" data-component-path="common.page" data-if="tickets" data-template="/templates/tickets.html"></div>
-		<div data-component="page" data-component-path="common.page" data-if="tickets-detail" data-template="/templates/tickets-detail.html" data-reload="ticketsdetail_init"></div>
-		<div data-component="page" data-component-path="common.page" data-if="users" data-template="/templates/users.html" data-reload="users_reload"></div>
-		<div data-component="page" data-component-path="common.page" data-if="account" data-template="/templates/account.html" data-reload="account_refresh"></div>
+		<div data-jc="page" data-jc-path="common.page" data-if="tickets" data-template="/templates/tickets.html"></div>
+		<div data-jc="page" data-jc-path="common.page" data-if="tickets-detail" data-template="/templates/tickets-detail.html" data-reload="ticketsdetail_init"></div>
+		<div data-jc="page" data-jc-path="common.page" data-if="users" data-template="/templates/users.html" data-reload="users_reload"></div>
+		<div data-jc="page" data-jc-path="common.page" data-if="account" data-template="/templates/account.html" data-reload="account_refresh"></div>
 	</div>
 
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/codemirror/5.13.2/codemirror.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>

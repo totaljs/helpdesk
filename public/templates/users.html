@@ -5,24 +5,24 @@
 				<h1>@(Users)</h1>
 			</div>
 			<div class="col-xs-6 right m">
-				<button class="button-small button-relative" data-component="click" data-component-path="users_new"><i class="fa fa-plus-circle"></i>@(NEW)</button>
+				<button class="button-small button-relative" data-jc="click" data-jc-path="users_new"><i class="fa fa-plus-circle"></i>@(NEW)</button>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-3 col-sm-6 m">
-				<div data-component="textbox" data-component-path="users.filter.search" data-placeholder="@(Search ...)" data-control-icon="fa-search"></div>
-				<div class="help" data-component="template" data-component-path="users.grid"><script type="text/html">{{ count | pluralize(@('# items','# item','# items','# items')) }} / {{ pages | pluralize(@('# pages','# page','# pages','# pages')) }}</script></div>
+				<div data-jc="textbox" data-jc-path="users.filter.search" data-placeholder="@(Search ...)" data-control-icon="fa-search"></div>
+				<div class="help" data-jc="template" data-jc-path="users.grid"><script type="text/html">{{ count | pluralize(@('# items','# item','# items','# items')) }} / {{ pages | pluralize(@('# pages','# page','# pages','# pages')) }}</script></div>
 			</div>
 			<div class="col-md-3 col-sm-6 m">
-				<div data-component="dropdown" data-component-path="users.filter.type" data-options="@(All users)|0;@(Customers)|1;@(Support)|2;@(Administrators)|3"></div>
+				<div data-jc="dropdown" data-jc-path="users.filter.type" data-options="@(All users)|0;@(Customers)|1;@(Support)|2;@(Administrators)|3"></div>
 			</div>
 			<div class="col-md-3 col-sm-6 m">
-				<div data-component="dropdown" data-component-path="users.filter.project" data-source="common.cdl.projects" data-empty="@(All projects)"></div>
+				<div data-jc="dropdown" data-jc-path="users.filter.project" data-source="common.cdl.projects" data-empty="@(All projects)"></div>
 			</div>
 		</div>
 	</div>
 
-	<div data-component="grid" data-component-path="users.grid" data-pagination-path="users.filter.page" data-component-id="users.grid" data-max="auto" data-page="@(Page: #)" data-pages="@(# pages,# page,# pages,# pages)" data-items="@(# items,# item,# items,# items)" data-empty="@(Database does not contain any data.)">
+	<div data-jc="grid" data-jc-path="users.grid" data-pagination-path="users.filter.page" data-jc-id="users.grid" data-max="auto" data-page="@(Page: #)" data-pages="@(# pages,# page,# pages,# pages)" data-items="@(# items,# item,# items,# items)" data-empty="@(Database does not contain any data.)">
 		<script type="text/html">
 		<tr{{ if !isconfirmed }} class="active"{{ fi }}>
 			<td style="width:200px" class="b">{{ if ispriority }}<span class="badge badge-red mr5">priority</span>{{ fi }}{{ if !iscustomer }}<span class="badge badge-green mr5">@(support)</span>{{ fi }}{{ name }}</td>
@@ -42,16 +42,16 @@
 	</div>
 </div>
 
-<div data-component="form" data-title="@(User form)" data-component-path="common.form" data-if="value === 'users'" data-width="700px" data-component-id="users.form">
+<div data-jc="form" data-title="@(User form)" data-jc-path="common.form" data-if="value === 'users'" data-width="700px" data-jc-id="users.form">
 	<div class="padding">
 		<div class="row">
 			<div class="col-md-4">
 				<br />
-				<div data-component="photoupload" data-component-path="users.form.photo" data-url="/api/upload/" data-upload-error="@(The file is too large.)" data-component-value="''"></div>
+				<div data-jc="photoupload" data-jc-path="users.form.photo" data-url="/api/upload/" data-upload-error="@(The file is too large.)" data-jc-value="''"></div>
 				<br />
 				<div class="help center"><i class="fa fa-camera"></i>@(Photo can be a logo of company.)</div>
 				<hr />
-				<div data-component="template" data-component-path="users.form" data-properties="datecreated, dateupdated, datelogged, online">
+				<div data-jc="template" data-jc-path="users.form" data-properties="datecreated, dateupdated, datelogged, online">
 					<script type="text/html">
 						{{ if datelogged }}
 						<div class="keyvalue">
@@ -76,37 +76,37 @@
 			</div>
 			<div class="col-md-8" style="border-left: 1px solid #F0F0F0">
 				<div class="padding">
-					<div class="m" data-component="textbox" data-component-path="users.form.name" data-required="true" data-maxlength="50" data-component-value="''">@(Name)</div>
-					<div data-component="textbox" data-component-path="users.form.email" data-maxlength="200" data-component-type="email" data-required="true" data-component-value="'@'">@(Email)</div>
+					<div class="m" data-jc="textbox" data-jc-path="users.form.name" data-required="true" data-maxlength="50" data-jc-value="''">@(Name)</div>
+					<div data-jc="textbox" data-jc-path="users.form.email" data-maxlength="200" data-jc-type="email" data-required="true" data-jc-value="'@'">@(Email)</div>
 					<div class="help m"><i class="fa fa-envelope mr5"></i>@(HelpDesk will send email with account confirmation.)</div>
-					<div class="m" data-component="textbox" data-component-path="users.form.company" data-component-value="''">@(Company)</div>
-					<div class="m" data-component="textbox" data-component-path="users.form.position" data-maxlength="50" data-placeholder="@(e.g. Web developer)" data-component-value="''">@(Position)</div>
-					<div class="m" data-component="dropdowncheckbox" data-component-path="users.form.projects" data-source="common.cdl.projects">@(Projects)</div>
+					<div class="m" data-jc="textbox" data-jc-path="users.form.company" data-jc-value="''">@(Company)</div>
+					<div class="m" data-jc="textbox" data-jc-path="users.form.position" data-maxlength="50" data-placeholder="@(e.g. Web developer)" data-jc-value="''">@(Position)</div>
+					<div class="m" data-jc="dropdowncheckbox" data-jc-path="users.form.projects" data-source="common.cdl.projects">@(Projects)</div>
 					<div class="row">
 						<div class="col-md-5 m">
-							<div data-component="textbox" data-component-path="users.form.minutes" data-component-value="0" data-increment="true" data-component-type="number" data-align="center" data-icon="fa-clock-o">@(Prepaid minutes)</div>
+							<div data-jc="textbox" data-jc-path="users.form.minutes" data-jc-value="0" data-increment="true" data-jc-type="number" data-align="center" data-icon="fa-clock-o">@(Prepaid minutes)</div>
 						</div>
 						<div class="col-md-5 m">
-							<div data-component="dropdown" data-component-path="users.form.language" data-icon="fa-flag" data-source="common.cdl.languages">@(Language)</div>
+							<div data-jc="dropdown" data-jc-path="users.form.language" data-icon="fa-flag" data-source="common.cdl.languages">@(Language)</div>
 						</div>
 					</div>
 
-					<div data-component="checkbox" data-component-path="users.form.isadmin" data-component-value="true" class="b green">@(User is administrator)</div>
-					<div data-component="checkbox" data-component-path="users.form.ispriority" data-component-value="true" class="b">@(Priority support)</div>
-					<div data-component="checkbox" data-component-path="users.form.iscustomer" data-component-value="true">@(User is customer)</div>
-					<div data-component="checkbox" data-component-path="users.form.isactivated" data-component-value="true">@(Enable access to HelpDesk)</div>
-					<div data-component="checkbox" data-component-path="users.form.isnotification" data-component-value="true">@(Enable notifications)</div>
-					<div data-component="checkbox" data-component-path="users.form.iswelcome" class="red b">@(Send welcome email)</div>
+					<div data-jc="checkbox" data-jc-path="users.form.isadmin" data-jc-value="true" class="b green">@(User is administrator)</div>
+					<div data-jc="checkbox" data-jc-path="users.form.ispriority" data-jc-value="true" class="b">@(Priority support)</div>
+					<div data-jc="checkbox" data-jc-path="users.form.iscustomer" data-jc-value="true">@(User is customer)</div>
+					<div data-jc="checkbox" data-jc-path="users.form.isactivated" data-jc-value="true">@(Enable access to HelpDesk)</div>
+					<div data-jc="checkbox" data-jc-path="users.form.isnotification" data-jc-value="true">@(Enable notifications)</div>
+					<div data-jc="checkbox" data-jc-path="users.form.iswelcome" class="red b">@(Send welcome email)</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div data-component="error" data-component-path="users.form.response"></div>
+	<div data-jc="error" data-jc-path="users.form.response"></div>
 	<div class="ui-form-buttons">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-4">
 				<div class="padding npt npb">
-					<div data-component="validation" data-component-path="users.form" class="inline">
+					<div data-jc="validation" data-jc-path="users.form" class="inline">
 						<button name="submit">@(SAVE)</button>
 					</div>
 					<button name="cancel">@(Cancel)</button>
@@ -116,8 +116,8 @@
 	</div>
 </div>
 
-<div data-component="form" data-title="@(Statistics)" data-component-path="common.form" data-if="value === 'stats'" data-width="500px" data-component-id="stats.form">
-	<div data-component="template" data-component-path="users.stats">
+<div data-jc="form" data-title="@(Statistics)" data-jc-path="common.form" data-if="value === 'stats'" data-width="500px" data-jc-id="stats.form">
+	<div data-jc="template" data-jc-path="users.stats">
 		<script type="text/html">
 			<div class="padding">
 

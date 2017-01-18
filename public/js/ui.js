@@ -46,107 +46,6 @@ COMPONENT('visible', function() {
 	};
 });
 
-COMPONENT('textboxlist', function() {
-	var self = this;
-	var container;
-	var empty = {};
-	var skip = false;
-
-	self.template = Tangular.compile('<div class="ui-textboxlist-item"><div><i class="fa fa-times"></i></div><div><input type="text" maxlength="{{ max }}" placeholder="{{ placeholder }}" value="{{ value }}" /></div></div>');
-	self.make = function() {
-
-		empty.max = (self.attr('data-maxlength') || '100').parseInt();
-		empty.placeholder = self.attr('data-placeholder');
-		empty.value = '';
-
-		var html = self.html();
-		var icon = self.attr('data-icon');
-
-		if (icon)
-			icon = '<i class="fa {0}"></i>'.format(icon);
-
-		self.toggle('ui-textboxlist');
-		self.html((html ? '<div class="ui-textboxlist-label">{1}{0}:</div>'.format(html, icon) : '') + '<div class="ui-textboxlist-items"></div>' + self.template(empty).replace('-item"', '-item ui-textboxlist-base"'));
-		container = self.find('.ui-textboxlist-items');
-
-		self.element.on('click', '.fa-times', function() {
-			var el = $(this);
-			var parent = el.closest('.ui-textboxlist-item');
-			var value = parent.find('input').val();
-			var arr = self.get();
-
-			parent.remove();
-
-			var index = arr.indexOf(value);
-			if (index === -1)
-				return;
-			arr.splice(index, 1);
-			skip = true;
-			self.set(self.path, arr, 2);
-			self.change(true);
-		});
-
-		self.element.on('change keypress', 'input', function(e) {
-
-			if (e.type !== 'change' && e.keyCode !== 13)
-				return;
-
-			var el = $(this);
-
-			var value = this.value.trim();
-			if (!value)
-				return;
-
-			var arr = [];
-			var base = el.closest('.ui-textboxlist-base').length > 0;
-
-			if (base && e.type === 'change')
-				return;
-
-			if (base) {
-				self.get().indexOf(value) === -1 && self.push(self.path, value, 2);
-				this.value = '';
-				self.change(true);
-				return;
-			}
-
-			container.find('input').each(function() {
-				arr.push(this.value.trim());
-			});
-
-			skip = true;
-			self.set(self.path, arr, 2);
-			self.change(true);
-		});
-	};
-
-	self.setter = function(value, path, type) {
-
-		if (skip) {
-			skip = false;
-			return;
-		}
-
-		if (!value || !value.length) {
-			container.empty();
-			return;
-		}
-
-		var builder = [];
-
-		value.forEach(function(item) {
-			empty.value = item;
-			builder.push(self.template(empty));
-		});
-
-		container.empty().append(builder.join(''));
-	};
-});
-
-/**
- * Message
- * @version 1.0.0
- */
 COMPONENT('message', function() {
 	var self = this;
 	var is = false;
@@ -375,14 +274,10 @@ COMPONENT('dropdown', function() {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.toggleClass('ui-dropdown-invalid', self.isInvalid());
+		container.toggleClass('ui-dropdown-invalid', invalid);
 	};
 });
 
-/**
- * Textbox
- * @version 3.0.0
- */
 COMPONENT('textbox', function() {
 
 	var self = this;
@@ -439,6 +334,7 @@ COMPONENT('textbox', function() {
 		attrs.attr('data-component-keypress', self.attr('data-component-keypress'));
 		attrs.attr('data-component-keypress-delay', self.attr('data-component-keypress-delay'));
 		attrs.attr('data-component-bind', '');
+		attrs.attr('name', self.path);
 
 		tmp = self.attr('data-align');
 		tmp && attrs.attr('class', 'ui-' + tmp);
@@ -453,6 +349,20 @@ COMPONENT('textbox', function() {
 
 		if (!icon2 && self.type === 'date')
 			icon2 = 'fa-calendar';
+		else if (self.type === 'search') {
+			icon2 = 'fa-search ui-textbox-control-icon';
+			self.element.on('click', '.ui-textbox-control-icon', function() {
+				self.$stateremoved = false;
+				$(this).removeClass('fa-times').addClass('fa-search');
+				self.set('');
+			});
+			self.getter2 = function(value) {
+				if (self.$stateremoved && !value)
+					return;
+				self.$stateremoved = value ? false : true;
+				self.find('.ui-textbox-control-icon').toggleClass('fa-times', value ? true : false).toggleClass('fa-search', value ? false : true);
+			};
+		}
 
 		icon2 && builder.push('<div><span class="fa {0}"></span></div>'.format(icon2));
 		increment && !icon2 && builder.push('<div><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
@@ -500,14 +410,10 @@ COMPONENT('textbox', function() {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.toggleClass('ui-textbox-invalid', self.isInvalid());
+		container.toggleClass('ui-textbox-invalid', invalid);
 	};
 });
 
-/**
- * Textarea
- * @version 3.0.0
- */
 COMPONENT('textarea', function() {
 
 	var self = this;
@@ -517,9 +423,8 @@ COMPONENT('textarea', function() {
 
 	self.validate = function(value) {
 
-		var is = false;
 		var type = typeof(value);
-		if (input.prop('disabled') || isRequired)
+		if (input.prop('disabled') || !isRequired)
 			return true;
 
 		if (type === 'undefined' || type === 'object')
@@ -572,7 +477,7 @@ COMPONENT('textarea', function() {
 
 		builder = [];
 		builder.push('<div class="ui-textarea-label{0}">'.format(isRequired ? ' ui-textarea-label-required' : ''));
-		icon && builder.push('<span class="fa {0}"></span> '.format(icon));
+		icon && builder.push('<span class="fa {0}"></span>'.format(icon));
 		builder.push(content);
 		builder.push(':</div><div class="ui-textarea">{0}</div>'.format(html));
 
@@ -589,7 +494,7 @@ COMPONENT('textarea', function() {
 		if (invalid === self.$oldstate)
 			return;
 		self.$oldstate = invalid;
-		container.toggleClass('ui-textarea-invalid', self.isInvalid());
+		container.toggleClass('ui-textarea-invalid', invalid);
 	};
 });
 
@@ -693,177 +598,16 @@ COMPONENT('error', function() {
 	};
 });
 
-COMPONENT('cookie', function() {
+COMPONENT('exec', function() {
 	var self = this;
 	self.readonly();
-	self.singleton();
+	self.blind();
 	self.make = function() {
-		var cookie = localStorage.getItem('cookie');
-		if (cookie) {
-			self.element.addClass('hidden');
-			return;
-		}
-
-		self.element.removeClass('hidden').addClass('ui-cookie');
-		self.element.append('<button>' + (self.attr('data-button') || 'OK') + '</button>');
-		self.element.on('click', 'button', function() {
-			localStorage.setItem('cookie', '1');
-			self.element.addClass('hidden');
-		});
-	};
-});
-
-COMPONENT('expander', function() {
-	var self = this;
-	self.readonly();
-	self.make = function() {
-		self.element.addClass('ui-expander');
-		self.element.wrapInner('<div class="ui-expander-container"></div>');
-		self.append('<div class="ui-expander-fade"></div><div class="ui-expander-button"><span class="fa fa-angle-double-down"></span></div>');
-		self.element.on('click', '.ui-expander-button', function() {
-			self.element.toggleClass('ui-expander-expanded');
-			self.element.find('.ui-expander-button').find('.fa').toggleClass('fa-angle-double-down fa-angle-double-up');
-		});
-	};
-});
-
-COMPONENT('textboxtags', function() {
-
-	var self = this;
-	var isRequired = self.attr('data-required') === 'true';
-	var isString = false;
-	var container;
-
-	if (!window.$textboxtagstemplate)
-		window.$textboxtagstemplate = Tangular.compile('<div class="ui-textboxtags-tag" data-name="{{ name }}">{{ name }}<i class="fa fa-times"></i></div>');
-
-	var template = window.$textboxtagstemplate;
-
-	self.validate = function(value) {
-		return isRequired ? value && value.length > 0 : true;
-	};
-
-	self.required = function(value) {
-		self.element.find('.ui-textboxtags-label').toggleClass('ui-textboxtags-label-required', value);
-		self.noValid(!value);
-		isRequired = value;
-		!value && self.state(1, 1);
-	};
-
-	self.make = function() {
-
-		var height = self.attr('data-height');
-		var icon = self.attr('data-icon');
-		var content = self.html();
-		var html = '<div class="ui-textboxtags-values"' + (height ? ' style="min-height:' + height + '"' : '') + '><input type="text" placeholder="' + (self.attr('data-placeholder') || '') + '" /></div>';
-
-		isString = self.type === 'string';
-
-		if (content.length) {
-			self.element.empty();
-			self.element.append('<div class="ui-textboxtags-label' + (isRequired ? ' ui-textboxtags-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div>');
-			self.element.append('<div class="ui-textboxtags">' + html + '</div>');
-		} else {
-			self.element.addClass('ui-textboxtags');
-			self.element.append(html);
-		}
-
-		self.element.on('click', function(e) {
-			self.element.find('input').focus();
-		});
-
-		container = self.element.find('.ui-textboxtags-values');
-		container.on('click', '.fa-times', function(e) {
-
-			e.preventDefault();
-			e.stopPropagation();
-
+		self.element.on('click', self.attr('data-selector') || '.exec', function() {
 			var el = $(this);
-			var arr = self.get();
-
-			if (isString)
-				arr = self.split(arr);
-
-			if (!arr || !(arr instanceof Array) || !arr.length)
-				return;
-
-			var index = arr.indexOf(el.parent().attr('data-name'));
-			if (index === -1)
-				return;
-
-			arr.splice(index, 1);
-			self.set(isString ? arr.join(', ') : arr);
-			self.change(true);
+			var attr = el.attr('data-exec');
+			attr && EXEC(attr, el);
 		});
-
-		self.element.on('keydown', 'input', function(e) {
-
-			if (e.keyCode === 8) {
-				if (this.value)
-					return;
-				var arr = self.get();
-				if (isString)
-					arr = self.split(arr);
-				if (!arr || !(arr instanceof Array) || !arr.length)
-					return;
-				arr.pop();
-				self.set(isString ? arr.join(', ') : arr);
-				self.change(true);
-				return;
-			}
-
-			if (e.keyCode !== 13 || !this.value)
-				return;
-
-			var arr = self.get();
-			var value = this.value;
-
-			if (isString)
-				arr = self.split(arr);
-
-			if (!(arr instanceof Array))
-				arr = [];
-
-			if (arr.indexOf(value) === -1)
-				arr.push(value);
-			else
-				return;
-
-			this.value = '';
-			self.set(isString ? arr.join(', ') : arr);
-			self.change(true);
-		});
-	};
-
-	self.split = function(value) {
-		if (!value)
-			return new Array(0);
-		var arr = value.split(',');
-		for (var i = 0, length = arr.length; i < length; i++)
-			arr[i] = arr[i].trim();
-		return arr;
-	};
-
-	self.setter = function(value) {
-
-		if (NOTMODIFIED(self.id, value))
-			return;
-
-		container.find('.ui-textboxtags-tag').remove();
-
-		if (!value || !value.length)
-			return;
-
-		var arr = isString ? self.split(value) : value;
-		var builder = '';
-		for (var i = 0, length = arr.length; i < length; i++)
-			builder += template({ name: arr[i] });
-
-		container.prepend(builder);
-	};
-
-	self.state = function(type) {
-		self.element.find('.ui-textboxtags').toggleClass('ui-textboxtags-invalid', self.isInvalid());
 	};
 });
 
@@ -1113,195 +857,6 @@ COMPONENT('form', function() {
 			setTimeout(function() {
 				self.element.find('.ui-form').addClass('ui-form-animate');
 			}, 300);
-		});
-	};
-});
-
-COMPONENT('pictures', function() {
-
-	var self = this;
-
-	self.skip = false;
-	self.readonly();
-
-	self.make = function() {
-		self.element.addClass('ui-pictures');
-	};
-
-	self.setter = function(value) {
-
-		if (typeof(value) === 'string')
-			value = value.split(',');
-
-		if (this.skip) {
-			this.skip = false;
-			return;
-		}
-
-		this.element.find('.fa').unbind('click');
-		this.element.find('img').unbind('click');
-		this.element.empty();
-
-		if (!(value instanceof Array) || !value.length)
-			return;
-
-		var count = 0;
-		var builder = [];
-
-		for (var i = 0, length = value.length; i < length; i++) {
-			var id = value[i];
-			id && builder.push('<div data-id="' + id + '" class="col-xs-3 m"><span class="fa fa-times"></span><img src="/images/small/{0}.jpg" class="img-responsive" alt="" /></div>'.format(id));
-		}
-
-		self.html(builder);
-		setTimeout(FN('() => $(window).trigger("resize");'), 500);
-
-		this.element.find('.fa').bind('click', function(e) {
-
-			var el = $(this).parent().remove();
-			var id = [];
-
-			self.element.find('div').each(function() {
-				id.push($(this).attr('data-id'));
-			});
-
-			self.skip = true;
-			self.set(id);
-		});
-
-		this.element.find('img').bind('click', function() {
-
-			var selected = self.element.find('.selected');
-			var el = $(this);
-
-			el.toggleClass('selected');
-
-			if (!selected.length)
-				return;
-
-			var id1 = el.parent().attr('data-id');
-			var id2 = selected.parent().attr('data-id');
-			var arr = self.get();
-
-			var index1 = arr.indexOf(id1);
-			var index2 = arr.indexOf(id2);
-
-			arr[index1] = id2;
-			arr[index2] = id1;
-
-			setTimeout(function() {
-				self.change();
-				self.set(arr);
-			}, 500);
-		});
-	};
-});
-
-COMPONENT('fileupload', function() {
-
-	var self = this;
-	var customvalue = null;
-	var loader;
-
-	self.error = function(err) {};
-	self.noValid();
-	self.setter = null;
-	self.getter = null;
-
-	var isRequired = this.element.attr('data-required') === 'true';
-
-	self.custom = function(val) {
-		customvalue = val;
-		return self;
-	};
-
-	self.make = function() {
-
-		var element = this.element;
-		var content = self.html();
-		var placeholder = self.attr('data-placeholder');
-		var icon = self.attr('data-icon');
-		var accept = self.attr('data-accept');
-		var url = self.attr('data-url');
-
-		if (!url) {
-			if (window.managerurl)
-				url = window.managerurl + '/upload/';
-			else
-				url = location.pathname
-		}
-
-		var multiple = self.attr('data-multiple') === 'true';
-		var html = '<span class="fa fa-folder"></span><input type="file"' + (accept ? ' accept="' + accept + '"' : '') + (multiple ? ' multiple="multiple"' : '') + ' class="ui-fileupload-input" /><input type="text" placeholder="' + (placeholder ? placeholder : '') + '" readonly="readonly" />';
-
-		if (content.length) {
-			element.empty();
-			element.append('<div class="ui-fileupload-label' + (isRequired ? ' ui-fileupload-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div>');
-			element.append('<div class="ui-fileupload">' + html + '</div>');
-		} else {
-			element.addClass('ui-fileupload');
-			element.append(html);
-		}
-
-		element.append('<div class="ui-fileupload-progress hidden"><div style="width:0%"></div></div>');
-		loader = element.find('.ui-fileupload-progress').find('div');
-
-		element.find('.ui-fileupload-input').on('change', function(evt) {
-
-			var files = evt.target.files;
-			var filename = [];
-			var el = this;
-			$(el).parent().find('input[type="text"]').val(filename.join(', '));
-
-			var data = new FormData();
-			for (var i = 0, length = files.length; i < length; i++)
-				data.append('file' + i, files[i]);
-
-			customvalue && data.append('custom', customvalue);
-
-			var loading = FIND('loading');
-			loading && loading.show();
-
-			COM.UPLOAD(url, data, function(response, err) {
-
-				if (err) {
-
-					loading && loading.hide(500);
-					var message = FIND('message');
-					if (message)
-						message.warning(self.attr('data-error-large'));
-					else
-						alert(self.attr('data-error-large'));
-
-					return;
-				}
-
-				self.change();
-				el.value = '';
-
-				if (self.attr('data-extension') === 'false') {
-					for (var i = 0, length = response.length; i < length; i++) {
-						var filename = response[i];
-						var index = filename.lastIndexOf('.');
-						if (index !== -1)
-							response[i] = filename.substring(0, index);
-					}
-				}
-
-				if (self.attr('data-singlefile') === 'true')
-					self.set(response);
-				else
-					self.push(response);
-
-				loading && loading.hide(500);
-				loader.css({ width: 0 });
-				loader.parent().removeClass('hidden');
-			}, function(percentage) {
-				loader.animate({ width: percentage + '%' }, 300);
-				percentage === 100 && setTimeout(function() {
-					loader.parent().addClass('hidden');
-				}, 1000);
-			});
 		});
 	};
 });
@@ -2252,25 +1807,6 @@ COMPONENT('pagination', function() {
 			self.element.toggleClass('hidden', false);
 		} else
 			self.element.toggleClass('hidden', true);
-	};
-});
-
-COMPONENT('range', function() {
-	var self = this;
-	var required = self.attr('data-required');
-
-	self.noValid();
-
-	self.make = function() {
-		var name = self.html();
-		if (name)
-			name = '<div class="ui-range-label{1}">{0}:</div>'.format(name, required ? ' ui-range-label-required' : '');
-		var attrs = [];
-		attrs.attr('step', self.attr('data-step'));
-		attrs.attr('max', self.attr('data-max'));
-		attrs.attr('min', self.attr('data-min'));
-		self.element.addClass('ui-range');
-		self.html('{0}<input type="range" data-component-keypress-delay="100" data-component-bind=""{1} />'.format(name, attrs.length ? ' ' + attrs.join(' ') : ''));
 	};
 });
 

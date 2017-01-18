@@ -7,36 +7,36 @@
 			<h1>@(All tickets)</h1>
 		</div>
 		<div class="col-xs-6 right">
-			<button class="button-small button-relative" data-component="click" data-component-path="tickets_new"><i class="fa fa-plus-circle"></i>@(NEW)</button>
+			<button class="button-small button-relative" data-jc="click" data-jc-path="tickets_new"><i class="fa fa-plus-circle"></i>@(NEW)</button>
 		</div>
 	</div>
 
 	<div class="filter filter-minimal">
 		<div class="row">
 			<div class="col-md-3 col-sm-6 m">
-				<div data-component="textbox" data-component-path="tickets.filter.search" data-placeholder="@(Search ...)" data-control-icon="fa-search"></div>
-				<div class="help" data-component="template" data-component-path="tickets.grid"><script type="text/html">{{ count | pluralize(@('# items','# item','# items','# items')) }} / {{ pages | pluralize(@('# pages','# page','# pages','# pages')) }}</script></div>
+				<div data-jc="textbox" data-jc-path="tickets.filter.search" data-placeholder="@(Search ...)" data-control-icon="fa-search"></div>
+				<div class="help" data-jc="template" data-jc-path="tickets.grid"><script type="text/html">{{ count | pluralize(@('# items','# item','# items','# items')) }} / {{ pages | pluralize(@('# pages','# page','# pages','# pages')) }}</script></div>
 			</div>
 			<div class="col-md-3 col-sm-6 m">
-				<div data-component="dropdown" data-component-path="tickets.filter.project" data-source="common.cdl.projects" data-empty="@(All projects)"></div>
+				<div data-jc="dropdown" data-jc-path="tickets.filter.project" data-source="common.cdl.projects" data-empty="@(All projects)"></div>
 				<div>&nbsp;</div>
 			</div>
 			<div class="col-md-3 col-sm-6 m">
-				<div data-component="dropdowncheckbox" data-component-path="tickets.filter.labels" data-source="common.cdl.labels" data-placeholder="@(All labels)"></div>
+				<div data-jc="dropdowncheckbox" data-jc-path="tickets.filter.labels" data-source="common.cdl.labels" data-placeholder="@(All labels)"></div>
 			</div>
 			<div class="col-md-3 col-sm-6 m">
-				<div data-component="dropdown" data-component-path="tickets.filter.language" data-source="common.cdl.languages" data-empty="@(All languages)"></div>
+				<div data-jc="dropdown" data-jc-path="tickets.filter.language" data-source="common.cdl.languages" data-empty="@(All languages)"></div>
 				<div>&nbsp;</div>
 			</div>
 		</div>
 	</div>
 
-	<ul class="tabmenu" data-component="tabmenu" data-component-path="tickets.filter.state">
+	<ul class="tabmenu" data-jc="tabmenu" data-jc-path="tickets.filter.state">
 		<li data-value="0" class="selected">@(Open)</li>
 		<li data-value="1">@(Closed)</li>
 	</ul>
 
-	<div data-component="grid" data-component-id="tickets.grid" data-component-path="tickets.grid" data-pagination-path="tickets.filter.page" data-max="auto" data-page="@(Page: #)" data-pages="@(# pages,# page,# pages,# pages)" data-items="@(# items,# item,# items,# items)" data-empty="@(Database does not contain any data.)" data-height="52">
+	<div data-jc="grid" data-jc-id="tickets.grid" data-jc-path="tickets.grid" data-pagination-path="tickets.filter.page" data-max="auto" data-page="@(Page: #)" data-pages="@(# pages,# page,# pages,# pages)" data-items="@(# items,# item,# items,# items)" data-empty="@(Database does not contain any data.)" data-height="52">
 		<script type="text/html">
 			<div class="tickets-issue{{ if ispriority }} tickets-issue-priority{{ fi }}{{ if iduserlast && iduser !== iduserlast }} tickets-issue-change{{ fi }}" data-id="{{ id }}">
 				<div class="photo"><img src="{{ photo | photo }}" width="33" height="33" alt="{{ user }}" /></div>
@@ -58,8 +58,8 @@
 	</div>
 </div>
 
-<div data-component="form" data-title="@(Ticket)" data-component-path="common.form" data-if="value === 'tickets'" data-width="500px" data-component-id="tickets.form">
-	<div class="padding" data-component="tagger" data-component-path="tickets.user">
+<div data-jc="form" data-title="@(Ticket)" data-jc-path="common.form" data-if="value === 'tickets'" data-width="500px" data-jc-id="tickets.form">
+	<div class="padding" data-jc="tagger" data-jc-path="tickets.user">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="keyvalue">
@@ -78,26 +78,26 @@
 	<div class="padding npt">
 		<div class="row">
 			<div class="col-md-12 m">
-				<div data-component="textbox" data-component-path="tickets.form.name" data-required="true" data-placeholder="@(e.g. A problem with layout)" data-component-value="''" data-maxlength="80">@(Ticket name)</div>
+				<div data-jc="textbox" data-jc-path="tickets.form.name" data-required="true" data-placeholder="@(e.g. A problem with layout)" data-jc-value="''" data-maxlength="80">@(Ticket name)</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12 m">
-				<div data-component="dropdown" data-component-path="tickets.form.project" data-required="true" data-source="common.cdl.projects" data-empty="" data-component-value="''">@(Project)</div>
+				<div data-jc="dropdown" data-jc-path="tickets.form.project" data-required="true" data-source="common.cdl.projects" data-empty="" data-jc-value="''">@(Project)</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<div data-component="checkbox" data-component-path="tickets.form.ispriority" data-component-value="false" class="b black">@(HIGH PRIORITY)</div>
-				<div data-component="visible" data-component-path="user.ispriority" data-if="!value" class="mt10 help">
+				<div data-jc="checkbox" data-jc-path="tickets.form.ispriority" data-jc-value="false" class="b black">@(HIGH PRIORITY)</div>
+				<div data-jc="visible" data-jc-path="user.ispriority" data-if="!value" class="mt10 help">
 					<i class="fa fa-warning red"></i>@(You don't have purchased priority support.)
 				</div>
 			</div>
 		</div>
 	</div>
-	<div data-component="error" data-component-path="tickets.form.response"></div>
+	<div data-jc="error" data-jc-path="tickets.form.response"></div>
 	<div class="ui-form-buttons">
-		<div data-component="validation" data-component-path="tickets.form" class="inline">
+		<div data-jc="validation" data-jc-path="tickets.form" class="inline">
 			<button name="submit">@(SUBMIT)</button>
 		</div>
 		<button name="cancel">@(Cancel)</button>

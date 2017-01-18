@@ -56,9 +56,10 @@ jR.route('/tickets/{id}/', function(id) {
 });
 
 jR.route('/users/', function() {
-	if (!user.isadmin)
-		return jR.redirect('/');
-	SET('common.page', 'users');
+	if (user.isadmin)
+		SET('common.page', 'users');
+	else
+		jR.redirect('/');
 });
 
 jR.on('location', function(url) {

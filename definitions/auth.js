@@ -49,7 +49,7 @@ F.on('service', function(interval) {
 	if (interval % 10 !== 0)
 		return;
 
-	var now = Date.now() - 600000;
+	var now = F.datetime.getTime() - 600000;
 
 	Object.keys(F.SESSION).forEach(function(key) {
 		if (F.SESSION[key].date < now)
