@@ -753,7 +753,7 @@ COMPONENT('form', function() {
 		window.$$form_level = window.$$form_level || 1;
 		MAN.$$form = true;
 		$(document).on('click', '.ui-form-button-close', function() {
-			SET($.components.findById($(this).attr('data-id')).path, '');
+			SET(FIND('#' + $(this).attr('data-id')).path, '');
 			window.$$form_level--;
 		});
 
@@ -808,9 +808,9 @@ COMPONENT('form', function() {
 
 		$(document.body).append('<div id="{0}" class="hidden ui-form-container"><div class="ui-form-container-padding"><div class="ui-form" style="max-width:{1}"><div class="ui-form-title"><span class="fa fa-times ui-form-button-close" data-id="{2}"></span>{3}</div>{4}</div></div>'.format(self._id, width, self.id, self.attr('data-title')));
 
-		self.element.data(COM_ATTR, self);
 		var el = $('#' + self._id);
 		el.find('.ui-form').get(0).appendChild(self.element.get(0));
+		self.element.removeClass('hidden');
 		self.element = el;
 
 		self.element.on('scroll', function() {
@@ -830,7 +830,7 @@ COMPONENT('form', function() {
 		});
 
 		enter === 'true' && self.element.on('keydown', 'input', function(e) {
-			e.keyCode === 13 && self.element.find('button[name="submit"]').get(0).disabled && self.submit(hide);
+			e.keyCode === 13 && !self.element.find('button[name="submit"]').get(0).disabled && self.submit(hide);
 		});
 
 		return true;
@@ -838,6 +838,10 @@ COMPONENT('form', function() {
 
 	self.getter = null;
 	self.setter = function(value) {
+
+		setTimeout2('noscroll', function() {
+			$('html').toggleClass('noscroll', $('.ui-form-container').not('.hidden').length ? true : false);
+		}, 50);
 
 		var isHidden = !EVALUATE(self.path, self.condition);
 		self.element.toggleClass('hidden', isHidden);
@@ -852,7 +856,7 @@ COMPONENT('form', function() {
 		var el = self.element.find('input,select,textarea');
 		el.length > 0 && el.eq(0).focus();
 		window.$$form_level++;
-		self.element.css('z-index', window.$$form_level * 10);
+		self.element.css('z-index', window.$$form_level * 5);
 		self.element.animate({ scrollTop: 0 }, 0, function() {
 			setTimeout(function() {
 				self.element.find('.ui-form').addClass('ui-form-animate');
