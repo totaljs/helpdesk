@@ -8,6 +8,7 @@ NEWSCHEMA('Comment').make(function(schema) {
 	schema.setSave(function(error, model, controller, callback) {
 
 		var sql = DB(error);
+		var is = model.id ? false : true;
 
 		if (model.id && controller.user.iscustomer) {
 			sql.select('comment', 'tbl_ticket_comment').make(function(builder) {
@@ -23,7 +24,7 @@ NEWSCHEMA('Comment').make(function(schema) {
 			});
 		}
 
-		sql.save('item', 'tbl_ticket_comment', !model.id, function(builder, create) {
+		sql.save('item', 'tbl_ticket_comment', is, function(builder, create) {
 
 			builder.set('search', model.body.keywords(true, true).join(' ').max(300));
 
@@ -45,9 +46,7 @@ NEWSCHEMA('Comment').make(function(schema) {
 		sql.query('UPDATE tbl_ticket SET iduserlast={0}, countcomments=(SELECT COUNT(id) FROM tbl_ticket_comment WHERE tbl_ticket_comment.idticket=tbl_ticket.id AND tbl_ticket_comment.isremoved=false AND tbl_ticket_comment.operation=0)'.format(sql.escape(controller.user.id))).where('id', model.idticket);
 
 		sql.exec(function(err, response) {
-			if (err)
-				return callback();
-			HelpDesk.notify(9, controller.user, model.idticket, model.id);
+			!err && is && HelpDesk.notify(9, controller.user, model.idticket, model.id);
 			callback(SUCCESS(true));
 		});
 	});
@@ -66,8 +65,7 @@ NEWSCHEMA('Comment').make(function(schema) {
 
 		if (controller.user.iscustomer) {
 			sql.validate(function(error, response, resume) {
-				if (response.comment.iduser !== controller.user.id)
-					error.push('error-privileges');
+				response.comment.iduser !== controller.user.id && error.push('error-privileges');
 				resume();
 			});
 		}
@@ -81,9 +79,4 @@ NEWSCHEMA('Comment').make(function(schema) {
 		sql.query('UPDATE tbl_ticket SET countcomments=(SELECT COUNT(id) FROM tbl_ticket_comment WHERE tbl_ticket_comment.idticket=tbl_ticket.id AND tbl_ticket_comment.isremoved=false AND tbl_ticket_comment.operation=0)').where('id', sql.expected('comment', 'idticket'));
 		sql.exec(() => callback(SUCCESS(true)));
 	});
-
-	schema.addWorkflow('notify', function(error, model, controller, callback) {
-
-	});
-
 });

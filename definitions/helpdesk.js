@@ -38,6 +38,7 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 	sql.select('ticket', 'tbl_ticket').make(function(builder) {
 		builder.fields('id', 'idsolver', 'iduser', 'name', 'project');
 		builder.where('id', idticket);
+		builder.where('isremoved', false);
 		builder.first();
 	});
 
@@ -78,7 +79,6 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 		});
 		resume();
 	});
-
 
 	sql.exec(function(err, response) {
 
@@ -128,6 +128,8 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 				response.idcomment = idcomment;
 				subject = 'New comment: {0}'.format(response.ticket.name.max(50));
 				viewname = 'mails/notify-comment';
+				// Add owner
+				response.owner && response.users.push(response.owner);
 				break;
 		}
 
