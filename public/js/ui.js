@@ -12,7 +12,7 @@ COMPONENT('click', function() {
 	};
 
 	self.make = function() {
-		self.element.on('click', self.click);
+		self.event('click', self.click);
 		var enter = self.attr('data-enter');
 		enter && $(enter).on('keydown', 'input', function(e) {
 			e.keyCode === 13 && setTimeout(function() {
@@ -58,7 +58,7 @@ COMPONENT('message', function() {
 	self.make = function() {
 		self.classes('ui-message hidden');
 
-		self.element.on('click', 'button', function() {
+		self.event('click', 'button', function() {
 			self.hide();
 		});
 
@@ -158,7 +158,7 @@ COMPONENT('checkbox', function() {
 	self.make = function() {
 		self.classes('ui-checkbox');
 		self.html('<div><i class="fa fa-check"></i></div><span{1}>{0}</span>'.format(self.html(), required ? ' class="ui-checkbox-label-required"' : ''));
-		self.element.on('click', function() {
+		self.event('click', function() {
 			self.dirty(false);
 			self.getter(!self.get(), 2, true);
 		});
@@ -351,7 +351,7 @@ COMPONENT('textbox', function() {
 			icon2 = 'fa-calendar';
 		else if (self.type === 'search') {
 			icon2 = 'fa-search ui-textbox-control-icon';
-			self.element.on('click', '.ui-textbox-control-icon', function() {
+			self.event('click', '.ui-textbox-control-icon', function() {
 				self.$stateremoved = false;
 				$(this).removeClass('fa-times').addClass('fa-search');
 				self.set('');
@@ -366,7 +366,7 @@ COMPONENT('textbox', function() {
 
 		icon2 && builder.push('<div><span class="fa {0}"></span></div>'.format(icon2));
 		increment && !icon2 && builder.push('<div><span class="fa fa-caret-up"></span><span class="fa fa-caret-down"></span></div>');
-		increment && self.element.on('click', '.fa-caret-up,.fa-caret-down', function(e) {
+		increment && self.event('click', '.fa-caret-up,.fa-caret-down', function(e) {
 			var el = $(this);
 			var inc = -1;
 			if (el.hasClass('fa-caret-up'))
@@ -375,7 +375,7 @@ COMPONENT('textbox', function() {
 			self.inc(inc);
 		});
 
-		self.type === 'date' && self.element.on('click', '.fa-calendar', function(e) {
+		self.type === 'date' && self.event('click', '.fa-calendar', function(e) {
 			e.preventDefault();
 			window.$calendar && window.$calendar.toggle($(this).parent().parent(), self.find('input').val(), function(date) {
 				self.set(date);
@@ -603,7 +603,7 @@ COMPONENT('exec', function() {
 	self.readonly();
 	self.blind();
 	self.make = function() {
-		self.element.on('click', self.attr('data-selector') || '.exec', function() {
+		self.event('click', self.attr('data-selector') || '.exec', function() {
 			var el = $(this);
 			var attr = el.attr('data-exec');
 			var path = el.attr('data-path');
@@ -682,10 +682,10 @@ COMPONENT('grid', function() {
 		height = (self.attr('data-height') || '26').parseInt();
 
 		self.template = Tangular.compile(template);
-		self.element.on('click', 'tr', function() {});
+		self.event('click', 'tr', function() {});
 		self.classes('ui-grid');
 		self.html('<div><div class="ui-grid-page"></div>{4}</div><div data-jc="pagination" data-jc-path="{0}" data-max="8" data-pages="{1}" data-items="{2}" data-target-path="{3}"></div>'.format(self.path, self.attr('data-pages'), self.attr('data-items'), self.attr('data-pagination-path'), table ? '<table width="100%" cellpadding="0" cellspacing="0" border="0"><tbody></tbody></table>' : '<div class="ui-grid-body"></div>'));
-		self.element.on('click', 'button', function() {
+		self.event('click', 'button', function() {
 			switch (this.name) {
 				default:
 					var index = parseInt($(this).closest('tr').attr('data-index'));
@@ -815,7 +815,7 @@ COMPONENT('form', function() {
 		self.classes('-hidden');
 		self.element = el;
 
-		self.element.on('scroll', function() {
+		self.event('scroll', function() {
 			EMIT('reflow', self.name);
 		});
 
@@ -831,7 +831,7 @@ COMPONENT('form', function() {
 			}
 		});
 
-		enter === 'true' && self.element.on('keydown', 'input', function(e) {
+		enter === 'true' && self.event('keydown', 'input', function(e) {
 			e.keyCode === 13 && !self.find('button[name="submit"]').get(0).disabled && self.submit(hide);
 		});
 	};
@@ -859,7 +859,7 @@ COMPONENT('form', function() {
 		el.length && el.eq(0).focus();
 
 		window.$$form_level++;
-		self.element.css('z-index', window.$$form_level * 10);
+		self.css('z-index', window.$$form_level * 10);
 		self.element.scrollTop(0);
 
 		setTimeout(function() {
@@ -868,7 +868,7 @@ COMPONENT('form', function() {
 
 		// Fixes a problem with freezing of scrolling in Chrome
 		setTimeout2(self.id, function() {
-			self.element.css('z-index', (window.$$form_level * 10) + 1);
+			self.css('z-index', (window.$$form_level * 10) + 1);
 		}, 1000);
 	};
 });
@@ -951,7 +951,7 @@ COMPONENT('checkboxlist', function() {
 	var self = this;
 	var template = Tangular.compile('<div class="{0} ui-checkboxlist-checkbox"><div><label><input type="checkbox" value="{{ id }}"><span>{{ name }}</span></label></div></div>'.format(self.attr('data-class')));
 	self.make = function() {
-		self.element.on('click', 'input', function() {
+		self.event('click', 'input', function() {
 			var arr = self.get() || [];
 			var value = self.parser(this.value);
 			var index = arr.indexOf(value);
@@ -962,7 +962,7 @@ COMPONENT('checkboxlist', function() {
 			self.set(arr);
 			self.change(true);
 		});
-		self.element.on('click', '.ui-checkboxlist-selectall', function() {
+		self.event('click', '.ui-checkboxlist-selectall', function() {
 			var arr = [];
 			var inputs = self.find('input');
 			var value = self.get();
@@ -1026,7 +1026,7 @@ COMPONENT('checkboxlist', function() {
 COMPONENT('dropdowncheckbox', function() {
 
 	var self = this;
-	var required = self.element.attr('data-required') === 'true';
+	var required = self.attr('data-required') === 'true';
 	var datasource = '';
 	var container;
 	var data = [];
@@ -1072,7 +1072,7 @@ COMPONENT('dropdowncheckbox', function() {
 		container = self.find('.ui-dropdowncheckbox-values');
 		values = self.find('.ui-dropdowncheckbox-selected');
 
-		self.element.on('click', '.ui-dropdowncheckbox', function(e) {
+		self.event('click', '.ui-dropdowncheckbox', function(e) {
 
 			var el = $(this);
 			if (el.hasClass('ui-disabled'))
@@ -1091,7 +1091,7 @@ COMPONENT('dropdowncheckbox', function() {
 			e.stopPropagation();
 		});
 
-		self.element.on('click', 'input,label', function(e) {
+		self.event('click', 'input,label', function(e) {
 
 			e.stopPropagation();
 
@@ -1270,8 +1270,8 @@ COMPONENT('codemirror', function() {
 
 	self.make = function() {
 
-		var height = self.element.attr('data-height');
-		var icon = self.element.attr('data-icon');
+		var height = self.attr('data-height');
+		var icon = self.attr('data-icon');
 		var content = self.html();
 
 		self.empty();
@@ -1458,7 +1458,7 @@ COMPONENT('calendar', function() {
 		var off = el.offset();
 		var h = el.innerHeight();
 
-		self.element.css({ left: off.left + (offset || 0), top: off.top + h + 12 }).removeClass('hidden');
+		self.css({ left: off.left + (offset || 0), top: off.top + h + 12 }).removeClass('hidden');
 		self.click = callback;
 		self.date(value);
 		visible = true;
@@ -1469,13 +1469,13 @@ COMPONENT('calendar', function() {
 
 		self.classes('ui-calendar hidden');
 
-		self.element.on('click', '.ui-calendar-today', function() {
+		self.event('click', '.ui-calendar-today', function() {
 			var dt = new Date();
 			self.hide();
 			self.click && self.click(dt);
 		});
 
-		self.element.on('click', '.ui-calendar-day', function() {
+		self.event('click', '.ui-calendar-day', function() {
 			var arr = this.getAttribute('data-date').split('-');
 			var dt = new Date(parseInt(arr[0]), parseInt(arr[1]), parseInt(arr[2]));
 			self.find('.ui-calendar-selected').removeClass('ui-calendar-selected');
@@ -1485,7 +1485,7 @@ COMPONENT('calendar', function() {
 			self.click && self.click(dt);
 		});
 
-		self.element.on('click', 'button', function(e) {
+		self.event('click', 'button', function(e) {
 
 			e.preventDefault();
 			e.stopPropagation();
@@ -1574,7 +1574,7 @@ COMPONENT('tabmenu', function() {
 	var self = this;
 	self.readonly();
 	self.make = function() {
-		self.element.on('click', 'li', function() {
+		self.event('click', 'li', function() {
 			var el = $(this);
 			!el.hasClass('selected') && self.set(self.parser(el.attr('data-value')));
 		});
@@ -1626,11 +1626,11 @@ COMPONENT('confirm', function() {
 
 	self.make = function() {
 		self.toggle('ui-confirm hidden', true);
-		self.element.on('click', 'button', function() {
+		self.event('click', 'button', function() {
 			self.hide($(this).attr('data-index').parseInt());
 		});
 
-		self.element.on('click', function(e) {
+		self.event('click', function(e) {
 			if (e.target.tagName !== 'DIV')
 				return;
 			var el = self.find('.ui-confirm-body');
@@ -1714,7 +1714,7 @@ COMPONENT('pagination', function() {
 		self.append('<div></div><nav></nav>');
 		nav = self.find('nav');
 		info = self.find('div');
-		self.element.on('click', 'a', function(e) {
+		self.event('click', 'a', function(e) {
 			e.preventDefault();
 			e.stopPropagation();
 			var el = $(this);
@@ -1817,14 +1817,12 @@ COMPONENT('pagination', function() {
 		if (cachePages > 1) {
 			var pluralize_pages = [cachePages];
 			var pluralize_items = [cacheCount];
-
 			pluralize_pages.push.apply(pluralize_pages, self.attr('data-pages').split(',').trim());
 			pluralize_items.push.apply(pluralize_items, self.attr('data-items').split(',').trim());
-
 			info.empty().append(Tangular.helpers.pluralize.apply(value, pluralize_pages) + ' / ' + Tangular.helpers.pluralize.apply(value, pluralize_items));
-			self.toggle('hidden', false);
-		} else
-			self.toggle('hidden', true);
+		}
+
+		self.classes((cachePages > 1 ? '-' : '') + 'hidden');
 	};
 });
 
@@ -1988,7 +1986,7 @@ COMPONENT('photoupload', function() {
 
 		input = $('#' + id);
 
-		self.element.on('click', function() {
+		self.event('click', function() {
 			input.click();
 		});
 
