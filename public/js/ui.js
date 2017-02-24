@@ -1263,25 +1263,16 @@ COMPONENT('codemirror', function() {
 		return required ? value && value.length > 0 : true;
 	};
 
-	self.append = function(text) {
-		editor.replaceSelection(text);
-		return self;
-	};
-
 	self.make = function() {
 
-		var height = self.attr('data-height');
-		var icon = self.attr('data-icon');
+		var height = self.element.attr('data-height');
+		var icon = self.element.attr('data-icon');
 		var content = self.html();
+		self.html('<div class="ui-codemirror-label' + (required ? ' ui-codemirror-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div><div class="ui-codemirror"></div>');
 
-		self.empty();
-		self.append('<div class="ui-codemirror-label' + (required ? ' ui-codemirror-label-required' : '') + '">' + (icon ? '<span class="fa ' + icon + '"></span> ' : '') + content + ':</div><div class="ui-codemirror"></div>');
 		var container = self.find('.ui-codemirror');
-
-		editor = CodeMirror(container.get(0), { lineNumbers: self.attr('data-linenumbers') === 'true', lineWrapping: true, foldGutter: true, mode: self.attr('data-type') || 'htmlmixed', indentUnit: 4 });
-
-		if (height !== 'auto')
-			editor.setSize('100%', height || '200px');
+		editor = CodeMirror(container.get(0), { lineNumbers: self.attr('data-linenumbers') === 'true', mode: self.attr('data-type') || 'htmlmixed', indentUnit: 4 });
+		height !== 'auto' && editor.setSize('100%', height || '200px');
 
 		editor.on('change', function(a, b) {
 
@@ -1290,8 +1281,7 @@ COMPONENT('codemirror', function() {
 				return;
 			}
 
-			clearTimeout(timeout);
-			timeout = setTimeout(function() {
+			setTimeout2(self.id, function() {
 				skipA = true;
 				self.reset(true);
 				self.dirty(false);
@@ -1320,7 +1310,6 @@ COMPONENT('codemirror', function() {
 		var t = editor.getCursor(false);
 		skipB = true;
 		editor.setValue(editor.getValue());
-		skipB = true;
 
 		setTimeout(function() {
 			editor.refresh();
@@ -1329,10 +1318,14 @@ COMPONENT('codemirror', function() {
 		setTimeout(function() {
 			editor.refresh();
 		}, 1000);
+
+		setTimeout(function() {
+			editor.refresh();
+		}, 2000);
 	};
 
 	self.state = function(type) {
-		self.find('.ui-codemirror').toggleClass('ui-codemirror-invalid', self.isInvalid());
+		self.element.find('.ui-codemirror').toggleClass('ui-codemirror-invalid', self.isInvalid());
 	};
 });
 
