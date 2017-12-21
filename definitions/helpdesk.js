@@ -139,7 +139,7 @@ HelpDesk.notify = function(type, user, idticket, idcomment) {
 				return;
 
 			var message = Mail.create(subject, F.view(viewname, response));
-			message.from(CONFIG('mail.address.from'));
+			message.from(CONFIG('mail-address.from'));
 			message.to(item.email);
 			messages.push(message);
 		});
