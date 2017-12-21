@@ -11,7 +11,7 @@ database                  : postgre://user:password@127.0.0.1/database
 
 mail-smtp                 : smtp.domain.com
 // mail-smtp-options         : {"user":"","password":""}
-mail-address.from         : support@totaljs.com
+mail-address-from         : support@totaljs.com
 
 auth.cookie               : __user
 auth.secret               : HeLlUser
