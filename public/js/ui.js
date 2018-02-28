@@ -1257,10 +1257,14 @@ COMPONENT('codemirror', function() {
 	var skipA = false;
 	var skipB = false;
 	var editor;
-	var timeout;
 
 	self.validate = function(value) {
 		return required ? value && value.length > 0 : true;
+	};
+
+	self.append = function(text) {
+		editor.replaceSelection(text);
+		return self;
 	};
 
 	self.make = function() {
@@ -1293,7 +1297,7 @@ COMPONENT('codemirror', function() {
 	};
 
 	self.getter = null;
-	self.setter = function(value, path) {
+	self.setter = function(value) {
 
 		if (skipA === true) {
 			skipA = false;
@@ -1306,8 +1310,6 @@ COMPONENT('codemirror', function() {
 		skipB = true;
 
 		CodeMirror.commands['selectAll'](editor);
-		var f = editor.getCursor(true);
-		var t = editor.getCursor(false);
 		skipB = true;
 		editor.setValue(editor.getValue());
 
@@ -1324,7 +1326,7 @@ COMPONENT('codemirror', function() {
 		}, 2000);
 	};
 
-	self.state = function(type) {
+	self.state = function() {
 		self.element.find('.ui-codemirror').toggleClass('ui-codemirror-invalid', self.isInvalid());
 	};
 });

@@ -253,7 +253,7 @@
 			data.append('file' + i, files[i]);
 
 		SETTER('loading', 'show');
-		COM.UPLOAD('/api/upload/', data, function(response, err) {
+		UPLOAD('/api/upload/', data, function(response, err) {
 
 			SETTER('loading', 'hide', 1000);
 
