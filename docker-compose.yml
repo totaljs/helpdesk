@@ -1,0 +1,20 @@
+version: '2'
+services:
+  helpdesk_postgres:
+    image: postgres:9.6.8-alpine
+    container_name: helpdesk_postgres
+    environment:
+      - POSTGRES_PASSWORD=123456
+
+  helpdesk_web:
+    build: docker
+    container_name: helpdesk_web
+    ports:
+      - 8000:8000
+    links:
+      - helpdesk_postgres
+      - helpdesk_gitlab
+    volumes:
+      - $PWD:/app
+    working_dir: /app
+    command: sh -c "npm install; node debug.js"

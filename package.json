@@ -1,12 +1,16 @@
 {
   "name": "HelpDesk",
   "description": "HelpDesk application build on Total.js.",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "main": "release.js",
   "dependencies": {
-    "total.js": "latest",
+    "async": "^2.6.0",
+    "passport": "^0.4.0",
+    "passport-gitlab2": "^3.0.0",
     "pg": "latest",
-    "sqlagent": "latest"
+    "request": "^2.85.0",
+    "sqlagent": "latest",
+    "total.js": "latest"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,6 +19,6 @@
     "helpdesk",
     "total.js"
   ],
-  "author":"Totaljs",
+  "author": "Totaljs",
   "license": "MIT"
 }

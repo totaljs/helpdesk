@@ -1,11 +1,11 @@
 name                      : HelpDesk
-version                   : 1.0.0
+version                   : 2.0.0
 author                    : Peter Širka
 
 url                       : https://helpdesk.totaljs.com
 
 // IMPORTANT: update the connection string below
-database                  : postgre://user:password@127.0.0.1/database
+database                  : postgre://postgres:123456@helpdesk_postgres/helpdesk
 
 // Custom SMTP settings
 

@@ -3,18 +3,18 @@ F.SESSION = {};
 // User authorization
 F.onAuthorize = function(req, res, flags, callback) {
 
-	var cookie = req.cookie(CONFIG('auth.cookie'));
-	var obj = F.decrypt(cookie, CONFIG('auth.secret'));
+	let cookie = req.cookie(CONFIG('auth.cookie'));
+	let obj = F.decrypt(cookie, CONFIG('auth.secret'), true);
 	if (!obj)
 		return callback(false);
 
-	var session = F.SESSION[obj.id];
+	let session = F.SESSION[obj.id];
 	if (session) {
 		session.date = F.datetime.getTime();
 		return callback(true, session);
 	}
 
-	var sql = DB();
+	let sql = DB();
 
 	sql.select('item', 'tbl_user').make(function(builder) {
 		builder.fields('id', 'name', 'iscustomer', 'company', 'photo', 'ispriority', 'isadmin', 'position', 'minutes');
@@ -49,7 +49,7 @@ F.on('service', function(interval) {
 	if (interval % 10 !== 0)
 		return;
 
-	var now = F.datetime.getTime() - 600000;
+	let now = F.datetime.getTime() - 600000;
 
 	Object.keys(F.SESSION).forEach(function(key) {
 		if (F.SESSION[key].date < now)

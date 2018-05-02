@@ -1,10 +1,6 @@
 [![MIT License][license-image]][license-url]
 
-[![Support](https://www.totaljs.com/img/button-support.png?v=2)](https://www.totaljs.com/support/)
-
 - __License__: [MIT](license.txt)
-- [__Live chat with professional support__](https://messenger.totaljs.com)
-- [__HelpDesk with professional support__](https://helpdesk.totaljs.com)
 
 # Installation
 
@@ -16,8 +12,14 @@
 - run `node debug.js`
 
 __Login__:
-- user: `support@totaljs.com`
+- user: `root@partdp.com`
 - password: `123456`
+
+#Gitlab oauth
+
+If you wanna use gitlab oauth login see below article
+
+[Gitlab docs](https://docs.gitlab.com/ce/integration/oauth_provider.html)
 
 ---
 

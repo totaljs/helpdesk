@@ -59,16 +59,16 @@
 					{{ if !operation }}
 					<div class="tickets-comment{{ if !iscustomer }} tickets-comments-admin{{ fi }}{{ if issolved }} tickets-comments-solution{{ fi }}">
 						<div class="author">
-							<div class="author-date">
+							<div class="author-date"{{ iduser | currentUser('author-date') }}>
 								{{ datecreated | time }}<i class="fa fa-clock-o"></i>
 							</div>
-							<div class="author-photo"><img src="{{ photo | photo }}" widht="35" height="35" alt="{{ user }}" /></div>
-							<div class="author-header">
+							<div class="author-photo"{{ iduser | currentUser('author-photo') }}><img src="{{ photo | photo }}" widht="35" height="35" alt="{{ user }}" /></div>
+							<div class="author-header"{{ iduser | currentUser('author-author-header') }}>
 								<div class="name">{{ if !iscustomer }}<span class="badge badge-green mr5">@(support)</span>{{ fi }}{{ user }}</div>
 								<div class="company">{{ company }}{{ if company && position }} - {{ fi }}{{ if position }}{{ position }}{{ fi }}</div>
 							</div>
 						</div>
-						<div class="markdown">{{ body | markdown }}</div>
+						<div class="markdown">{{ body | markdown | persian }}</div>
 						<i class="fa fa-thumbs-up"></i>
 						{{ if can }}
 						<div class="tickets-comment-buttons" data-id="{{ id }}">{{ if admin }}<a href="javascript:void(0)" title="@(Solution)" class="tickets-comment-buttons-operation" data-type="solution"><i class="fa fa-thumbs-up"></i></a>{{ fi }}<a href="javascript:void(0)" title="@(Edit)" class="tickets-comment-buttons-operation" data-type="edit"><i class="fa fa-pencil"></i></a><a href="javascript:void(0)" title="@(Remove)" data-type="remove" class="tickets-comment-buttons-operation"><i class="fa fa-times-circle"></i></a></div>
@@ -188,6 +188,19 @@
 	var ticketsdetail = {};
 
 	ticketsdetail.form = {};
+
+    $(document).on('input', '.CodeMirror', function () {
+        if ($(this).text().match(/[۰-۹آ-ی]+/)) {
+            $(this).css('direction', 'rtl');
+            $(this).find('.CodeMirror-scroll').css('margin-right', '-16px');
+            $(this).find('.CodeMirror-scroll').css('margin-left', '-30px');
+        }
+        else {
+            $(this).css('direction', 'ltr');
+            $(this).find('.CodeMirror-scroll').css('margin-right', '-30px');
+            $(this).find('.CodeMirror-scroll').css('margin-left', 0);
+        }
+    });
 
 	$(document).on('click', '.tickets-comment-buttons-operation', function() {
 		var el = $(this);

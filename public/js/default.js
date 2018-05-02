@@ -62,6 +62,13 @@ jR.route('/users/', function() {
 		jR.redirect('/');
 });
 
+jR.route('/settings/', function() {
+    if (user.isadmin)
+        SET('common.page', 'settings');
+    else
+        jR.redirect('/');
+});
+
 jR.on('location', function(url) {
 	var selected = url.split('/', 2).join('/');
 
@@ -128,6 +135,26 @@ Tangular.register('photo', function(value) {
 
 Tangular.register('markdown', function(value) {
 	return marked(value).replace(/<img/g, '<img class="img-responsive img-rounded"');
+});
+
+Tangular.register('persian', function(value) {
+    if (value.match(/[۰-۹آ-ی]+/)) {
+        return '<div style=" direction: rtl">' + value + '</div>';
+    } else
+        return value;
+});
+
+Tangular.register('currentUser', function (id, element) {
+    switch (element) {
+        case 'author-date':
+            return id === user.id ? ' style="float: left;"' : '';
+        case 'author-photo':
+            return id === user.id ? ' style="float: right;"' : '';
+        case 'author-author-header':
+            return id === user.id ? ' style="float: right; margin: 3px 12px 0 0;"' : '';
+        default:
+            return '';
+    }
 });
 
 Tangular.register('labels', function(value) {

@@ -1,0 +1,442 @@
+<div class="container">
+    <br/>
+
+    <div class="filter filter-minimal">
+        <div class="row">
+            <div class="col-xs-6">
+                <h1>@(Settings) <i class="fa fa-refresh mr5 silver" style="cursor: pointer" data-jc="click"
+                                   data-jc-path="manual_refresh"></i></h1>
+            </div>
+            <div class="col-xs-6 right">
+                <button class="button-small button-relative" data-id="add-github" data-jc="click"
+                        data-jc-path="new_gitlab_project" style="visibility: hidden;">
+                    <i class="fa fa-plus-circle"></i>
+                    @(From Github)
+                </button>
+
+                <span> </span>
+
+                <button class="button-small button-relative" data-id="add" data-jc="click" data-jc-path="new_item">
+                    <i class="fa fa-plus-circle"></i>
+                    @(New)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <ul class="tabmenu" data-jc="tabmenu" data-jc-path="settings.filter.state">
+        <li data-value="0" class="selected">@(Label)</li>
+        <li data-value="1">@(Project)</li>
+        <li data-value="2">@(Global Settings)</li>
+    </ul>
+
+    <div data-jc="grid" data-jc-id="settings.grid" data-jc-path="settings.grid" data-max="auto"
+         data-items="@(# items,# item,# items,# items)" data-empty="@(Database does not contain any data.)"
+         data-height="52">
+        <script type="text/html">
+            <tr>
+                <td>{{ name }}</td>
+                <td>{{ if from }}{{ from }}{{ else if value }}{{ value }}{{ fi }}</td>
+                <td style="width:80px" class="ui-right">
+                    {{ if value }}
+                    <button name="edit" title="@(Show)"><span class="fa fa-pencil"></span></button>
+                    {{ fi }}
+                    <button name="remove" title="@(Remove)"><span class="fa fa-times" {{ if isconst }}
+                                                                  style="display: none;" {{ fi }}></span></button>
+                </td>
+            </tr>
+        </script>
+    </div>
+</div>
+
+<div data-jc="form" data-title="@(Label)" data-jc-path="common.form" data-if="value === 'label'"
+     data-width="500px" data-jc-id="settings.form.label" class="hidden">
+    <div class="padding"></div>
+    <div class="padding npt">
+        <div class="row">
+            <div class="col-md-12 m">
+                <div data-jc="textbox" data-jc-path="settings.form.label.name" data-required="true"
+                     data-placeholder="@(e.g. Your label name)" data-jc-value="''" data-maxlength="80">@(Label)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-jc="error" data-jc-path="settings.form.response"></div>
+    <div class="ui-form-buttons">
+        <div data-jc="validation" data-jc-path="settings.form.label" class="inline">
+            <button name="submit">@(SUBMIT)</button>
+        </div>
+        <button name="cancel">@(Cancel)</button>
+    </div>
+</div>
+
+<div data-jc="form" data-title="@(Project)" data-jc-path="common.form" data-if="value === 'project'"
+     data-width="500px" data-jc-id="settings.form.project" class="hidden">
+    <div class="padding"></div>
+    <div class="padding npt">
+        <div class="row">
+            <div class="col-md-12 m">
+                <div data-jc="textbox" data-jc-path="settings.form.project.name" data-required="true"
+                     data-placeholder="@(e.g. Your project name)" data-jc-value="''" data-maxlength="80">@(Project)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-jc="error" data-jc-path="settings.form.response"></div>
+    <div class="ui-form-buttons">
+        <div data-jc="validation" data-jc-path="settings.form.project" class="inline">
+            <button name="submit">@(SUBMIT)</button>
+        </div>
+        <button name="cancel">@(Cancel)</button>
+    </div>
+</div>
+
+<div data-jc="form" data-title="@(Gitlab Projects)" data-jc-path="common.form" data-if="value === 'gitlabProject'"
+     data-width="500px" data-jc-id="settings.form.gitlabProject" class="hidden">
+    <div class="padding"></div>
+    <div class="padding npt">
+        <div class="row">
+            <div class="col-md-12 m">
+                <div data-jc="textbox" data-jc-path="settings.form.gitlabProject.token" data-required="true"
+                     data-placeholder="@(e.g. Your gitlab token)" data-jc-type="password" data-jc-value="''"
+                     data-maxlength="80">@(Token)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-jc="error" data-jc-path="settings.form.response"></div>
+    <div class="ui-form-buttons">
+        <div data-jc="validation" data-jc-path="settings.form.gitlabProject" class="inline">
+            <button name="submit">@(SUBMIT)</button>
+        </div>
+        <button name="cancel">@(Cancel)</button>
+    </div>
+</div>
+
+<div data-jc="form" data-title="@(Gitlab Projects Select)" data-jc-path="common.form"
+     data-if="value === 'gitlabProjectSelect'"
+     data-width="400px" data-jc-id="projects.form" class="hidden">
+    <div class="padding"></div>
+    <div class="padding npt">
+        <div data-jc="grid" data-jc-path="projects.grid" data-pagination-path="projects.filter.page"
+             data-jc-id="projects.grid" data-max="auto" data-page="@(Page: #)"
+             data-pages="@(# pages,# page,# pages,# pages)" data-items="@(# items,# item,# items,# items)"
+             data-empty="@(Database does not contain any data.)">
+            <script type="text/html">
+                <div data-jc="checkbox" data-select="project-select" data-name="{{ name }}" class="ui-checkbox">
+                    <div><i class="fa fa-check"></i></div>
+                    <span>{{ name }}</span></div>
+            </script>
+        </div>
+    </div>
+    <div data-jc="error" data-jc-path="settings.form.response"></div>
+    <div class="ui-form-buttons">
+        <div class="inline">
+            <button name="submit">@(SUBMIT)</button>
+        </div>
+        <button name="cancel">@(Cancel)</button>
+    </div>
+</div>
+
+<div data-jc="form" data-title="@(Global Settings)" data-jc-path="common.form" data-if="value === 'global'"
+     data-width="500px" data-jc-id="settings.form.global" class="hidden">
+    <div class="padding"></div>
+    <div class="padding npt">
+        <div class="row">
+            <div class="col-md-12 m">
+                <div data-jc="textbox" data-jc-path="settings.form.global.name" data-required="true"
+                     data-placeholder="@(e.g. Your data name)" data-jc-value="''" data-maxlength="80">@(Name)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 m">
+                <div data-jc="textbox" data-jc-path="settings.form.global.value" data-required="true"
+                     data-placeholder="@(e.g. Your data value)" data-jc-value="''">@(Value)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-jc="error" data-jc-path="settings.form.response"></div>
+    <div class="ui-form-buttons">
+        <div data-jc="validation" data-jc-path="settings.form.global" class="inline">
+            <button name="submit">@(SUBMIT)</button>
+        </div>
+        <button name="cancel">@(Cancel)</button>
+    </div>
+</div>
+
+<script>
+    var settings = {};
+
+    settings.form = {
+        label: {},
+        project: {},
+        global: {},
+        gitlabProject: {},
+        response: []
+    };
+    settings.cache = {
+        label: {},
+        project: {},
+        global: {}
+    };
+    settings.grid = {};
+    settings.filter = {state: '0'};
+    settings.state = [
+        'label',
+        'project',
+        'global'
+    ];
+
+    var projects = {};
+
+    projects.filter = {};
+    projects.filter.page = 1;
+    projects.grid = {};
+    projects.form = [];
+
+    function manual_refresh() {
+        SETTER('loading', 'show');
+        setTimeout(settings_refresh, 600);
+    }
+
+    function new_item() {
+        DEFAULT('settings.form.*');
+        SET('settings.form.response', []);
+
+        $('input[name="settings.form.global.name"]').prop("readonly", false);
+
+        SET('common.form', settings.state[settings.filter.state]);
+    }
+
+    function new_gitlab_project() {
+        $('*[data-id="project-page"]').addClass('hidden');
+        SET('settings.form.gitlabProject', {});
+
+        settings.form.gitlabProject.source = 'gitlab';
+        SET('common.form', 'gitlabProject');
+    }
+
+    function settings_init() {
+        var add = $('*[data-id="add"]');
+        add.html(add.html().replace(/new.*/ig, '@(New Label)'));
+    }
+
+    ON(`#settings.form.${settings.state[0]}`, function (component) {
+        component.submit = function (hide) {
+            upsert_settings(settings.state[0], hide);
+        };
+    });
+
+    ON(`#settings.form.${settings.state[1]}`, function (component) {
+        component.submit = function (hide) {
+            upsert_settings(settings.state[1], hide);
+        };
+    });
+
+    ON(`#settings.form.${settings.state[2]}`, function (component) {
+        component.submit = function (hide) {
+            upsert_settings(settings.state[2], hide);
+        };
+    });
+
+    ON(`#settings.form.gitlabProject`, function (component) {
+        component.submit = function (hide) {
+            AJAX(`POST /api/project/external`, settings.form.gitlabProject, function (response) {
+                SET('settings.form.response', response);
+                if (response instanceof Array)
+                    return;
+
+                success(true);
+                hide();
+
+                SET('projects.grid', response);
+                SET('common.form', 'gitlabProjectSelect');
+            });
+        };
+    });
+
+    ON(`#projects.form`, function (component) {
+        component.submit = function (hide) {
+            SETTER('loading', 'show');
+
+            var error = [];
+            var task = [];
+            for (let i = 0; i < projects.form.length; i++) {
+                task.push($.ajax({
+                    type: 'post',
+                    url: '/api/settings/',
+                    dataType: 'json',
+                    data: {
+                        name: `${settings.form.gitlabProject.source}:${projects.form[i]}`,
+                        type: 'project'
+                    },
+                    success: function (response) {
+                        if (response instanceof Array)
+                            error = error.concat(response);
+                    }
+                }));
+            }
+
+            $.when.apply(undefined, task).then(function () {
+                SETTER('loading', 'hide');
+
+                SET('projects.form', []);
+                SET('projects.grid', {});
+                SET('projects.filter.page', 1);
+                SET('settings.form.gitlabProject', {});
+
+                if (error.length) {
+                    error = error.reduce(function (memo, e1) {
+                        var matches = memo.filter(function (e2) {
+                            return e1.error === e2.error
+                        });
+                        if (matches.length === 0)
+                            memo.push(e1);
+                        return memo;
+                    }, []);
+
+                    SET('settings.form.response', error);
+
+                    return;
+                }
+
+                settings_refresh();
+                success(true);
+                hide();
+            });
+        };
+    });
+
+    ON('#settings.grid', function (component) {
+        SETTER('loading', 'show');
+
+        settings.filter.max = component.max;
+        settings_refresh();
+
+        component.click = function (index, row, button) {
+            SET('settings.form.response', []);
+
+            let data = settings.cache[settings.state[settings.filter.state]].items;
+            let obj = {};
+
+            for (let i = 0; i < data.length; i++) {
+                if (data[i].name === row.name) {
+                    obj = data[i];
+                    break;
+                }
+            }
+
+            switch ($(button).attr('name')) {
+                case 'edit':
+                    $('input[name="settings.form.global.name"]').prop("readonly", true);
+                    SET('settings.form.global', obj);
+                    SET('common.form', settings.state[settings.filter.state]);
+                    break;
+                case 'remove':
+                    FIND('confirm').confirm(`@(Do you want to remove selected ${settings.state[settings.filter.state]} item?)`, ['@(OK)', '@(Cancel)'], function (index) {
+                        if (index)
+                            return;
+                        SETTER('loading', 'show');
+
+                        AJAX('DELETE /api/settings/{0}/{1}'.format(settings.state[settings.filter.state], obj.name), function () {
+                            EXEC('settings_refresh');
+                            SETTER('loading', 'hide');
+                        });
+                    });
+                    break;
+            }
+        };
+    });
+
+    $(document).on('click', '*[data-select="project-select"]', function () {
+        $(this).toggleClass('ui-checkbox-checked');
+        var item = $(this).data('name');
+
+        if ($(this).is('.ui-checkbox-checked'))
+            projects.form.push(item);
+        else
+            projects.form = $.grep(projects.form, function (value) {
+                return value !== item;
+            });
+    });
+
+    // Watch for changes in product filter
+    WATCH('settings.filter.*', function (path, value) {
+        if (NOTMODIFIED('settings.filter', settings.filter))
+            return;
+
+        update_grid();
+    });
+
+    WATCH('projects.filter.*', function (path, value) {
+        if (NOTMODIFIED('projects.filter', projects.filter))
+            return;
+
+        settings.form.gitlabProject.page = value.page;
+        AJAX(`POST /api/project/external`, settings.form.gitlabProject, function (response) {
+            SET('settings.form.response', response);
+            if (response instanceof Array)
+                return;
+
+            success(true);
+
+            SET('projects.grid', response);
+
+            for (var i = 0; i < projects.form.length; i++)
+                $('*[data-name="' + projects.form[i] + '"]').addClass('ui-checkbox-checked');
+        });
+    });
+
+    function settings_refresh() {
+        AJAX('GET /api/settings/', function (response) {
+            settings.cache.label = response.label;
+            settings.cache.project = response.project;
+            settings.cache.global = response.global;
+
+            update_grid();
+            SETTER('loading', 'hide');
+        })
+    }
+
+    function update_grid() {
+        var addGithub = $('*[data-id="add-github"]');
+        var add = $('*[data-id="add"]');
+
+        switch (settings.filter.state) {
+            case '0':
+                SET('settings.grid', settings.cache.label);
+                addGithub.css('visibility', 'hidden');
+                add.html(add.html().replace(/new.*/ig, '@(New Label)'));
+                break;
+            case '1':
+                SET('settings.grid', settings.cache.project);
+                addGithub.css('visibility', 'visible');
+                add.html(add.html().replace(/new.*/ig, '@(New Project)'));
+                break;
+            case '2':
+                SET('settings.grid', settings.cache.global);
+                addGithub.css('visibility', 'hidden');
+                add.html(add.html().replace(/new.*/ig, '@(New Setting)'));
+                break;
+        }
+    }
+
+    function upsert_settings(type, hide) {
+        var obj = settings.form[type];
+        AJAX(`POST /api/settings`, {
+            name: obj.name,
+            value: obj.value,
+            type: type
+        }, function (response) {
+            SET('settings.form.response', response);
+            if (response instanceof Array)
+                return;
+
+            settings_refresh();
+            success(true);
+            hide();
+        });
+    }
+</script>

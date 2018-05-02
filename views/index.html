@@ -40,6 +40,7 @@
 			<a class="jrouting" href="/account/" title="@(Account)" data-role="account"><span class="fa fa-cogs"></span></a>
 			@{if user.isadmin}
 			<a class="jrouting" href="/users/" title="@(Users)" data-role="users"><span class="fa fa-users"></span></a>
+			<a class="jrouting" href="/settings/" title="@(Settings)" data-role="settings"><span class="fa fa-wrench"></span></a>
 			@{fi}
 			<a href="https://www.totaljs.com/support/" title="@(Contact)" target="_blank"><span class="fa fa-support"></span></a>
 			<a class="logoff" href="/logoff/" title="@(Sign out)"><span class="fa fa-power-off"></span></a>
@@ -50,6 +51,7 @@
 		<div data-jc="page" data-jc-path="common.page" data-if="tickets" data-template="/templates/tickets.html"></div>
 		<div data-jc="page" data-jc-path="common.page" data-if="tickets-detail" data-template="/templates/tickets-detail.html" data-reload="ticketsdetail_init"></div>
 		<div data-jc="page" data-jc-path="common.page" data-if="users" data-template="/templates/users.html" data-reload="users_reload"></div>
+		<div data-jc="page" data-jc-path="common.page" data-if="settings" data-template="/templates/settings.html" data-reload="settings_init"></div>
 		<div data-jc="page" data-jc-path="common.page" data-if="account" data-template="/templates/account.html" data-reload="account_refresh"></div>
 	</div>
 

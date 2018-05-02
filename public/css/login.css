@@ -15,6 +15,9 @@ input { font-size: 14px !important; padding: 3px 3px; }
 .ui-button:active { opacity: 0.9; box-shadow: inset 1px 1px 4px rgba(0,0,0,0.4); color: #CCEEFE; }
 .ui-button:disabled { background-color: #E0E0E0; color: silver; cursor: not-allowed; border: 1px solid #E0E0E0; }
 
+.social-button { height: 40px !important; font-size: 16px; font-weight: bold; background-color: #e65328; color: white; border: 1px solid white; outline: 0; border-radius: 3px; }
+.social-button:active { opacity: 0.9; box-shadow: inset 1px 1px 4px rgba(0,0,0,0.4); color: #CCEEFE; }
+
 h1 { font: normal 400 20px 'Source Sans Pro'; color: white; margin: 0; padding: 0; }
 h1 b { font-weight: 700; }
 
@@ -35,3 +38,35 @@ h1 b { font-weight: 700; }
 
 .success { font-size: 12px; background-color: #8CC152; color: white; padding: 10px 50px; line-height: 16px; margin: 20px 0 0; text-align: center; }
 .success .fa { margin-right: 5px; }
+
+.hr-text {
+    line-height: 1em;
+    position: relative;
+    outline: 0;
+    border: 0;
+    color: black;
+    text-align: center;
+    height: 1.5em;
+    opacity: .5;
+}
+
+.hr-text:before {
+    content: '';
+    background: linear-gradient(to right, transparent, #818078, transparent);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+}
+
+.hr-text:after {
+    content: attr(data-content);
+    position: relative;
+    display: inline-block;
+
+    padding: 0 .5em;
+    line-height: 1.5em;
+    color: #818078;
+    background-color: #fcfcfa;
+}
