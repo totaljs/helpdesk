@@ -1,3 +1,4 @@
+error-settings-404        : Settings not found.
 error-comment-404         : Comment not found.
 error-ticket-404          : Ticket not found.
 error-ticket-priority     : You don't have purchased priority support.
@@ -7,3 +8,4 @@ error-user-confirmed      : Account is not confirmed.
 error-user-credentials    : Bad credentials
 error-user-email          : Email address is not registered in database.
 error-privileges          : You don't have any privileges for this operation.
+error-change-access       : Your item not found or you not permitted to change or delete.
