@@ -35,6 +35,17 @@
 					<svg style="width:100%" viewBox="0 0 1170 30" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h1170s-441.424 30-578.518 30c-137.094 0-591.482-30-591.482-30z" fill="#A0D468"/></svg>
 				</div>
 
+                <div class="padding" data-jc="visible" data-jc-path="common.form" data-if="value === 'signin'">
+                    <button class="social-button btn-social btn-gitlab"
+                            onclick="location.href='/auth/gitlab';"
+                            style="margin-top:8px;width:100%;text-align: center;">
+                        <span class="fa fa-gitlab" style="line-height:38px;width:50px"></span>
+                        Sign in with Gitlab
+                    </button>
+                </div>
+
+                <hr class="hr-text" data-content="OR" data-jc="visible" data-jc-path="common.form" data-if="value === 'signin'">
+
 				<div data-jc="visible" data-jc-path="password.response" data-if="value && value.success" class="success hidden">
 					<i class="fa fa-check-circle"></i>@(We sent you an email with instructions for resetting password.)
 				</div>
